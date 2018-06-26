@@ -1,0 +1,1224 @@
+<?xml version="1.0"?>
+<doc>
+  <assembly>
+    <name>IronOcr</name>
+  </assembly>
+  <members>
+    <member name="T:IronOcr.AutoOcr">
+      <summary>
+            A user-friendly OCR engine which extracts text and barcodes from images.
+            AutoOcr "looks" at each image before scanning it, and uses meta-data and computer-vision to predict intelligent default settings for each setting.
+            See also <see cref="T:IronOcr.AdvancedOcr">IronOcr.AdvancedOcr</see> for faster, more specific OCR results.
+            </summary>
+    </member>
+    <member name="F:IronOcr.AutoOcr.Language">
+      <summary>
+            Natural Language of the scanned documents.  Default is English.
+            </summary>
+    </member>
+    <member name="F:IronOcr.AutoOcr.ReadBarCodes">
+      <summary>
+            Enables Barcodes to be extracted from OCR documents, alongside the text content.
+            </summary>
+    </member>
+    <member name="M:IronOcr.AutoOcr.ReadMultiFrameTiff(System.String)">
+      <summary>
+            Performs OCR on a multi-pages image such as a multi-frame Tiff.  Also works on GIF files.
+            </summary>
+      <param name="TiffPath">File path to a Tiff file with multiple pages/frames</param>&gt;
+            <returns>
+            Returns paginated OCR results for all pages of the Tiff, containing Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence etc.  Each frame is treated as a single page.
+            </returns></member>
+    <member name="M:IronOcr.AutoOcr.ReadMultiFrameTiff(System.Drawing.Bitmap)">
+      <summary>
+            Performs OCR on a multi-pages image such as a multi-frame Tiff.  Also works on GIF files.
+            </summary>
+      <param name="Tiff">Systemn.Drawing.Bitmap of a Tiff file with multiple pages/frames</param>&gt;
+            <returns>
+            Returns paginated OCR results for all pages of the Tiff, containing Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence etc.  Each frame is treated as a single page.
+            </returns></member>
+    <member name="M:IronOcr.AutoOcr.Read(System.Collections.Generic.IEnumerable{System.String})">
+      <summary>
+            Performs OCR on multiple Images using multi-threaded parallel processing
+            </summary>
+      <param name="ImageFilePaths">Documents to be scanned as an image file path.</param>
+      <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence etc.</returns>
+    </member>
+    <member name="M:IronOcr.AutoOcr.Read(System.String)">
+      <summary>
+            Performs OCR on an Image. 
+            </summary>
+      <param name="ImageFilePath">Document file path to be read using OCR</param>
+      <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence  etc.</returns>
+    </member>
+    <member name="M:IronOcr.AutoOcr.ReadPdf(System.IO.Stream,System.Collections.Generic.IEnumerable{System.Int32})">
+      <summary>
+            Performs OCR on an PDF Document. 
+            </summary>
+      <param name="PdfStreamData">The stream data for a PDF Document to be converted back to text. </param>
+      <param name="PageRange">
+      </param>Optional enumerable list of pages.  Only these page numbers will have OCR performed.
+            <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence, etc.</returns></member>
+    <member name="M:IronOcr.AutoOcr.ReadPdf(System.Byte[],System.Collections.Generic.IEnumerable{System.Int32})">
+      <summary>
+            Performs OCR on an PDF Document. 
+            </summary>
+      <param name="PdfBinaryData">The binary data for a PDF Document to be converted back to text. </param>
+      <param name="PageRange">
+      </param>Optional enumerable list of pages.  Only these page numbers will have OCR performed.
+            <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence, etc.</returns></member>
+    <member name="M:IronOcr.AutoOcr.ReadPdf(System.String,System.Int32)">
+      <summary>
+            Performs OCR on one page of a PDF Document. 
+            </summary>
+      <param name="PdfFilePath">PDF Document to be converted back to text.</param>
+      <param name="PageNumber">
+      </param>Page number to OCR.  The first page is 1 rather than 0.
+            <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence, etc.</returns></member>
+    <member name="M:IronOcr.AutoOcr.ReadPdf(System.Byte[],System.Int32)">
+      <summary>
+            Performs OCR on one page an PDF Document. 
+            </summary>
+      <param name="PdfBinaryData">The binary data for a PDF Document to be converted back to text. </param>
+      <param name="PageNumber">
+      </param>Page number to OCR.  The first page is 1 rather than 0.
+            <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence, etc.</returns></member>
+    <member name="M:IronOcr.AutoOcr.ReadPdf(System.IO.Stream,System.Int32)">
+      <summary>
+            Performs OCR on one page an PDF Document. 
+            </summary>
+      <param name="PdfStreamData">The stream data for a PDF Document to be converted back to text. </param>
+      <param name="PageNumber">
+      </param>Page number to OCR.  The first page is 1 rather than 0.
+            <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence, etc.</returns></member>
+    <member name="M:IronOcr.AutoOcr.ReadPdf(System.String,System.Collections.Generic.IEnumerable{System.Int32})">
+      <summary>
+            Performs OCR on an PDF Document. 
+            </summary>
+      <param name="PdfFilePath">PDF Document to be converted back to text.</param>
+      <param name="PageRange">
+      </param>Optional enumerable list of pages.  Only these page numbers will have OCR performed.
+            <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence, etc.</returns></member>
+    <member name="M:IronOcr.AutoOcr.Read(System.Drawing.Image)">
+      <summary>
+            Performs OCR on an Image. 
+            </summary>
+      <param name="Image">Document to be scanned as a System.Drawing.Image</param>
+      <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence  etc.</returns>
+    </member>
+    <member name="M:IronOcr.AutoOcr.Read(System.Collections.Generic.IEnumerable{System.Drawing.Image})">
+      <summary>
+            Performs OCR on multiple Images simultaneously using parallel multi threading;
+            </summary>
+      <param name="Images">Document to be scanned as a System.Drawing.Image</param>
+      <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence  etc.</returns>
+    </member>
+    <member name="M:IronOcr.AutoOcr.Read(System.Drawing.Bitmap)">
+      <summary>
+            Performs OCR on an Image.  
+            </summary>
+      <param name="Bitmap">Document to be scanned as a System.Drawing.Bitmap</param>
+      <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence, etc.</returns>
+    </member>
+    <member name="M:IronOcr.AutoOcr.Read(System.Collections.Generic.IEnumerable{System.Drawing.Bitmap})">
+      <summary>
+            Performs OCR on multiple Images in parallel using multi-threading;
+            </summary>
+      <param name="Bitmaps">Documents to be scanned as an IEnumerable of System.Drawing.Bitmap</param>
+      <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence, etc.</returns>
+    </member>
+    <member name="M:IronOcr.AutoOcr.Read(System.String,System.Drawing.Rectangle)">
+      <summary>
+            Performs OCR on an Image. 
+            <para>Only Text and Barcodes within the CropArea will be scanned</para></summary>
+      <param name="ImageFilePath">Document to be scanned as an image file path.</param>
+      <param name="CropArea">A rectangular area of the image to be scanned for OCR.</param>
+      <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence etc.</returns>
+    </member>
+    <member name="M:IronOcr.AutoOcr.Read(System.Drawing.Image,System.Drawing.Rectangle)">
+      <summary>
+            Performs OCR on an Image. 
+            <para>Only Text and Barcodes within the CropArea will be scanned</para></summary>
+      <param name="Image">Document to be scanned as a System.Drawing.Image</param>
+      <param name="CropArea">A rectangular area of the image to be scanned for OCR.</param>
+      <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence etc.</returns>
+    </member>
+    <member name="M:IronOcr.AutoOcr.Read(System.Drawing.Bitmap,System.Drawing.Rectangle)">
+      <summary>
+            Performs OCR on an Image. 
+            <para>Only Text and Barcodes within the CropArea will be scanned</para></summary>
+      <param name="Bitmap">Document to be scanned as a System.Drawing.Bitmap</param>
+      <param name="CropArea">A rectangular area of the image to be scanned for OCR.</param>
+      <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence etc.</returns>
+    </member>
+    <member name="T:IronOcr.IronOcrInstallation">
+      <summary>
+             Sets global installation parameters for IronOCR.
+            </summary>
+    </member>
+    <member name="P:IronOcr.IronOcrInstallation.InstallationPath">
+      <summary>
+            Gets or sets the installation path directory to which assemblies will and temporary files will be deployed.
+            InstallationPath should be set before any <see cref="T:IronOcr.AdvancedOcr" /> or <see cref="T:IronOcr.AutoOcr" /> methods are called.
+            </summary>
+      <value>The installation path on a local hard disk.  Leaving this value null will select a suitable temporary folder.</value>
+    </member>
+    <member name="T:IronOcr.Languages.IOcrLanguagePack">
+      <summary>
+             Abstract class defining IronOcr language packs.
+            
+             <para><see cref="T:IronOcr.Languages.English" /> is installed by default. Additional Language packs may be added to your project via Nuget or by downloading DLLs from http://ironsoftware.com/csharp/ocr/
+            </para></summary>
+    </member>
+    <member name="P:IronOcr.Languages.IOcrLanguagePack.LanguageCode">
+      <exclude />
+    </member>
+    <member name="M:IronOcr.Languages.IOcrLanguagePack.Deploy(System.String)">
+      <exclude />
+    </member>
+    <member name="M:IronOcr.Languages.IOcrLanguagePack.DeployLang(System.String,System.String,System.Reflection.Assembly)">
+      <exclude />
+    </member>
+    <member name="T:IronOcr.Languages.MultiLanguage">
+            Composite language pack allowing IronOCR to read documents in more than once language at the same time.
+        </member>
+    <member name="M:IronOcr.Languages.MultiLanguage.#ctor(IronOcr.Languages.IOcrLanguagePack[])">
+      <summary>
+                     Initializes a new instance of the <see cref="T:IronOcr.Languages.MultiLanguage" /> language pack class.
+                      </summary>
+      <example>var Ocr = new IronOcr.AdvancedOcr()
+                        {
+                            Language =  IronOcr.Languages.MultiLanguage.OcrLanguagePack(IronOcr.Languages.English.OcrLanguagePack, IronOcr.Languages.German.OcrLanguagePack)
+                        };</example>
+      <param name="Languages">Any number of Languages as instances of <see cref="T:IronOcr.Languages.IOcrLanguagePack" /></param>
+    </member>
+    <member name="M:IronOcr.Languages.MultiLanguage.Deploy(System.String)">
+      <exclude />
+    </member>
+    <member name="P:IronOcr.Languages.MultiLanguage.LanguageCode">
+      <exclude />
+    </member>
+    <member name="M:IronOcr.Languages.MultiLanguage.ToString">
+      <exclude />
+    </member>
+    <member name="M:IronOcr.Languages.MultiLanguage.OcrLanguagePack(IronOcr.Languages.IOcrLanguagePack[])">
+      <summary> Returns a composite language pack allowing IronOcr to read documents in more than once language at the same time.</summary>
+      <example>var Ocr = new IronOcr.AdvancedOcr()
+                       {
+                           Language = IronOcr.Languages.MultiLanguage.OcrLanguagePack(IronOcr.Languages.English.OcrLanguagePack, IronOcr.Languages.German.OcrLanguagePack)
+                       };</example>
+      <param name="Languages">Any number of Languages as instances of <see cref="T:IronOcr.Languages.IOcrLanguagePack" /></param>
+    </member>
+    <member name="T:IronOcr.Languages.English">
+      <summary>
+              English Language Pack.  Installed by default with IronOcr.
+              <para> Get more language packs on Nuget or by downloading DLLs from http://ironsoftware.com/csharp/ocr/ </para></summary>
+    </member>
+    <member name="M:IronOcr.Languages.English.Deploy(System.String)">
+      <exclude />
+    </member>
+    <member name="P:IronOcr.Languages.English.LanguageCode">
+      <exclude />
+    </member>
+    <member name="M:IronOcr.Languages.English.ToString">
+      <exclude />
+    </member>
+    <member name="P:IronOcr.Languages.English.OcrLanguagePack">
+            English (eng) Language pack covering American, British, Canadian, Australian, Indian and International English.
+            This Language pack is also effective for OCR in many other languages which use of the Roman alphabet, and also for reading codes, serial numbers and vehicle number plates.
+        </member>
+    <member name="T:IronOcr.License">
+      <summary>
+             Allows IronOcr license keys to be applied globally across an application.
+             <para>Apply your license using <see cref="F:IronOcr.License.LicenseKey" /> in your code, or add the key IronOcr.LicenseKey to Web.Conbfig or App.Config</para></summary>
+    </member>
+    <member name="F:IronOcr.License.LicenseKey">
+      <summary>
+             License IronOcr for deployment.  Get Licensed at http://ironsoftware.com/csharp/ocr/licensing/
+             A License key can also be added to Web.Config or App.Config as IronOcr.LicenseKey
+            </summary>
+    </member>
+    <member name="M:IronOcr.License.IsValidLicense(System.String)">
+      <summary>
+            Determines whether a license key is valid.
+            </summary>
+      <param name="LicenseKey">IronOcr license key as a string</param>
+    </member>
+    <member name="T:IronOcr.OcrResult">
+      <summary>
+            Detailed results from reading one or more images using IronOcr.
+            <para><see cref="T:IronOcr.OcrResult" /> contains text, barcodes, images and a detailed object model for every discovered object on each page, with detailed meta-data.</para></summary>
+    </member>
+    <member name="T:IronOcr.OcrResult.OcrPage">
+      <summary>
+            An object representing a whole page of content  read by IronOcr.  May contains text &amp; barcodes alongside detailed enumerable meta-data
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrPage.Width">
+      <summary>
+            Width of the input document image in pixels (measured after it has been unrotated and deskewed by <see cref="F:IronOcr.AdvancedOcr.RotateAndStraighten" />)
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrPage.Height">
+      <summary>
+            Height of the input document image in pixels (measured after it has been unrotated and deskewed by <see cref="F:IronOcr.AdvancedOcr.RotateAndStraighten" />)
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrPage.PageNumber">
+      <summary>
+            The number of this page within an <see cref="T:IronOcr.OcrResult" />.  Being 1 based, the first page is numbered 1, rather than zero.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrPage.Text">
+      <summary>
+            Full text discovered within this page as a UFT-8 string.  Each paragraph of text  will be separated by 2 x Environment.NewLine
+            </summary>
+    </member>
+    <member name="M:IronOcr.OcrResult.OcrPage.ToString">
+      <summary>
+            Return the pages's full <see cref="P:IronOcr.OcrResult.OcrPage.Text" /></summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrPage.FontName">
+      <summary>
+            The name of the most common typeface discovered within this page. If a typeface is unknown, the closest match will be returned.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrPage.FontSize">
+      <summary>
+            The most common text size discovered within this page. Measured in pixels.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrPage.EnhancedImage">
+      <exclude />
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrPage.Image">
+      <summary>
+            A bitmap image of this page.  The image may have been straightened if the original input image was skewed, deformed or had perspective.
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrPage.Barcodes">
+      <summary>
+            Objects describing each <see cref="T:IronOcr.OcrResult.OcrBarcode">barcode</see> found in this scanned page.
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrPage.Paragraphs">
+      <summary>
+            Objects describing each <see cref="T:IronOcr.OcrResult.OcrParagraph">paragraph</see> found in this scanned page.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrPage.WordCount">
+      <summary>
+            The number of words discovered by IronOcr in this page.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrPage.Words">
+      <summary>
+            Objects describing each <see cref="T:IronOcr.OcrResult.OcrWord">word</see> found in this scanned page.
+            </summary>
+    </member>
+    <member name="M:IronOcr.OcrResult.OcrPage.Finalize">
+      <summary>
+            OcrPage Destructor.  Safely removed GDI+ references to page images to avoid memory leaks in System.Drawing. 
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrPage.LinesOfText">
+      <summary>
+            Objects describing each <see cref="T:IronOcr.OcrResult.OcrLine">line of text</see> found in this scanned page.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrPage.Characters">
+      <summary>
+            Objects describing each <see cref="T:IronOcr.OcrResult.OcrCharacter"> character </see> found in this scanned page.
+            </summary>
+    </member>
+    <member name="T:IronOcr.OcrResult.OcrBarcode">
+      <summary>
+            Object describing a Barcode or QR code discovered by IronOcr.
+            20+ formats are supported.
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrBarcode.Location">
+      <summary>
+            The location and size of this barcode as discovered in <see cref="F:IronOcr.OcrResult.OcrPage.mImage" /></summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrBarcode.Width">
+      <summary>
+            Width of the barcode in Pixels.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrBarcode.Height">
+      <summary>
+            Height of the barcode in Pixels.  Height may be approximated for 1 dimensional barcodes.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrBarcode.X">
+      <summary>
+            Horizontal location of this barcode relative to the left edge of the page.  Measured in pixels.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrBarcode.Y">
+      <summary>
+            Vertical location of this barcode relative to the top edge of the page.  Measured in pixels.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrBarcode.Image">
+      <summary>
+            An image of this barcode
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrBarcode.PageNumber">
+      <summary>
+            The OcrResult page number this barcode was found on
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrBarcode.OcrObjectId">
+      <summary>
+            A unique name for this barcode within an <see cref="T:IronOcr.OcrResult" />.
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrBarcode.Format">
+      <summary>
+            Describes the type of barcode discovered.
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrBarcode.Value">
+      <summary>
+            The value of this barcode as a string.  It may represent numbers, a url, or UTF-8 text.
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrBarcode.BarcodeNumber">
+      <summary>
+            The position of this barcode within an <see cref="T:IronOcr.OcrResult.OcrPage" />.  The first barcode is numbered 1, rather than zero.
+            </summary>
+    </member>
+    <member name="M:IronOcr.OcrResult.OcrBarcode.ToString">
+      <summary>
+             Returns the Value of this barcode as a string.
+            </summary>
+    </member>
+    <member name="T:IronOcr.OcrResult.OcrBarcode.BarcodeFormat">
+      <summary>
+            Describes types of barcode 
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrBarcode.BarcodeFormat.Aztec">
+                Aztec (2 Dimensional)  
+        </member>
+    <member name="F:IronOcr.OcrResult.OcrBarcode.BarcodeFormat.CodaBar">
+            CODABAR (1 Dimensional)  
+        </member>
+    <member name="F:IronOcr.OcrResult.OcrBarcode.BarcodeFormat.Code39">
+                Code 39 (1 Dimensional)
+        </member>
+    <member name="F:IronOcr.OcrResult.OcrBarcode.BarcodeFormat.Code93">
+                Code 93 (1 Dimensional)
+        </member>
+    <member name="F:IronOcr.OcrResult.OcrBarcode.BarcodeFormat.Code128">
+                Code 128 (1 Dimensional)
+        </member>
+    <member name="F:IronOcr.OcrResult.OcrBarcode.BarcodeFormat.DataMatrix">
+                Data Matrix (2 Dimensional) 
+        </member>
+    <member name="F:IronOcr.OcrResult.OcrBarcode.BarcodeFormat.EAN13">
+                EAN-8 (1 Dimensional)  
+                EAN-13 (1 Dimensional)  
+        </member>
+    <member name="F:IronOcr.OcrResult.OcrBarcode.BarcodeFormat.ITF">
+                ITF (Interleaved Two of Five) (1 Dimensional)
+        </member>
+    <member name="F:IronOcr.OcrResult.OcrBarcode.BarcodeFormat.MaxiCode">
+                MaxiCode (2 Dimensional)    
+        </member>
+    <member name="F:IronOcr.OcrResult.OcrBarcode.BarcodeFormat.PDF417">
+                PDF417 format.
+        </member>
+    <member name="F:IronOcr.OcrResult.OcrBarcode.BarcodeFormat.QRCode">
+               QR Code   (2 Dimensional) 
+        </member>
+    <member name="F:IronOcr.OcrResult.OcrBarcode.BarcodeFormat.Rss14">
+                RSS 14
+        </member>
+    <member name="F:IronOcr.OcrResult.OcrBarcode.BarcodeFormat.RssExpanded">
+                RSS Expanded
+        </member>
+    <member name="F:IronOcr.OcrResult.OcrBarcode.BarcodeFormat.UPCA">
+                UPC-A (1 Dimensional) 
+        </member>
+    <member name="F:IronOcr.OcrResult.OcrBarcode.BarcodeFormat.UPCE">
+                UPC-E (1 Dimensional) 
+        </member>
+    <member name="F:IronOcr.OcrResult.OcrBarcode.BarcodeFormat.MSI">
+                MSI
+        </member>
+    <member name="F:IronOcr.OcrResult.OcrBarcode.BarcodeFormat.Plessey">
+                Plessey
+        </member>
+    <member name="F:IronOcr.OcrResult.OcrBarcode.BarcodeFormat.IMB">
+                Intelligent Mail Barcode
+        </member>
+    <member name="T:IronOcr.OcrResult.OcrParagraph">
+      <summary>
+            An object representing each paragraph of text read by IronOcr
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrParagraph.Location">
+      <summary>
+            The location and size of this paragraph as discovered in <see cref="F:IronOcr.OcrResult.OcrPage.mImage" /></summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrParagraph.Confidence">
+      <summary>
+            The percentage statistical confidence IronOcr has in analysis of this paragraph of text.  Values range from 0-100. 
+            For higher contrast (lower Confidence scores for words which may have been read incorrectly, try setting 
+            <see cref="F:IronOcr.AdvancedOcr.Strategy" /> = <see cref="F:IronOcr.AdvancedOcr.OcrStrategy.Advanced" /> and looking at the confidence of each individual <see cref="P:IronOcr.OcrResult.OcrParagraph.Words">Word</see>.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrParagraph.Width">
+      <summary>
+            Width of the paragraph in pixels.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrParagraph.Height">
+      <summary>
+            Height of the paragraph in pixels.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrParagraph.X">
+      <summary>
+            Horizontal location of the paragraph relative to the left edge of the page.  Measured in pixels.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrParagraph.Y">
+      <summary>
+            Vertical location of the paragraph relative to the top edge of the page.  Measured in pixels.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrParagraph.Image">
+      <summary>
+            An image of this word
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrParagraph.PageNumber">
+      <summary>
+             The OcrResult page number this paragraph was found on
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrParagraph.Text">
+      <summary>
+            Full text discovered within this paragraph as a UFT-8 string.  Each line of text - as read - will be separated by one Environment.NewLine
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrParagraph.OcrObjectId">
+      <summary>
+            A unique name for this paragraph of text within the OcrResults model.
+            </summary>
+    </member>
+    <member name="M:IronOcr.OcrResult.OcrParagraph.ToString">
+      <summary>
+            Return the paragraph's <see cref="P:IronOcr.OcrResult.OcrParagraph.Text" /></summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrParagraph.WordCount">
+      <summary>
+            Number of words in this paragraph
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrParagraph.Words">
+      <summary>
+            Objects describing each <see cref="T:IronOcr.OcrResult.OcrWord">word</see> in this paragraph.
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrParagraph.Lines">
+      <summary>
+            Objects describing each <see cref="T:IronOcr.OcrResult.OcrLine">line of text</see> in this paragraph.
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrParagraph.ParagraphNumber">
+      <summary>
+            The position of this word within its page
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrParagraph.TextOrientation">
+      <summary>
+            The clockwise rotation of this text relative to the top of the page.  Measured in degrees.  A value of 0 means the text is perfectly vertical.
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrParagraph.TextDirection">
+      <summary>
+            The direction in which text should be read within this paragraph.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrParagraph.FontName">
+      <summary>
+            The name of the most common font / typeface in this the paragraph. If the font is unknown, a close visual match will be chosen.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrParagraph.FontSize">
+      <summary>
+            The most common font size for words within the paragraph.  Measured in Pixels.
+            </summary>
+    </member>
+    <member name="M:IronOcr.OcrResult.SaveAsTextFile(System.String)">
+      <summary>
+            Saves the OCR<see cref="P:IronOcr.OcrResult.Text">Text</see> to a file.
+            </summary>
+      <param name="FilePath">The file path.</param>
+    </member>
+    <member name="P:IronOcr.OcrResult.FontName">
+      <summary>
+            The name of the most common font / typeface  the document. If the font is unknown, a close visual match will be chosen.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.FontSize">
+      <summary>
+            The most common font size within the document.  In Pixels.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.Text">
+      <summary>
+            Gets the full text content for the document.
+            <para>
+            Each Lines as seen on the paper document with be terminated with System.NewLine.  Paragraphs are separated by 2 x System.NewLine.  Pages are separated by 4 x System.NewLine
+            </para></summary>
+      <value>
+            Plain UTF-8 text.
+            </value>
+    </member>
+    <member name="M:IronOcr.OcrResult.ToString">
+      <summary>
+            The full OCR text as a UTF-8 string.
+            </summary>
+      <returns>
+            A <see cref="T:System.String" /> that represents this instance.
+            </returns>
+    </member>
+    <member name="P:IronOcr.OcrResult.Barcodes">
+      <summary>
+            All Barcodes and QR codes discovered within the document.
+            </summary>
+      <value>
+            IEnumerable&lt;<see cref="T:IronOcr.OcrResult.OcrBarcode" />&gt;
+            </value>
+    </member>
+    <member name="P:IronOcr.OcrResult.Pages">
+      <summary>
+            A detailed object model containing every paragraph, line of text, word and character in every page of the scanned document with detailed images, coordinates and meta-data.
+            </summary>
+    </member>
+    <member name="T:IronOcr.OcrResult.OcrLine">
+      <summary>
+            An object representing each line of text discovered in an OCRResult
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrLine.Location">
+      <summary>
+            The location and size of this line of text as discovered in <see cref="F:IronOcr.OcrResult.OcrPage.mImage" /></summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrLine.Confidence">
+      <summary>
+            The mean (average) percentage statistical confidence IronOcr has in its analysis of this line of text.  Values range from 0-100.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrLine.Width">
+      <summary>
+            Width of the line of text,  in pixels.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrLine.Height">
+      <summary>
+            Height of the line of text,  in pixels.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrLine.X">
+      <summary>
+            Horizontal location of this line of text relative to the left edge of the page.  Measured in pixels.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrLine.Y">
+      <summary>
+            Vertical location of this line of text  relative to the top edge of the page.  Measured in pixels.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrLine.Image">
+      <summary>
+            An image of this entire line of text
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrLine.PageNumber">
+      <summary>
+            The OcrResult page number this line of text  was found on
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrLine.OcrObjectId">
+      <summary>
+            A unique name for this line of text within an <see cref="T:IronOcr.OcrResult" />.
+            </summary>
+    </member>
+    <member name="M:IronOcr.OcrResult.OcrLine.ToString">
+      <summary>
+            Return the line's full <see cref="P:IronOcr.OcrResult.OcrLine.Text" /> as a string
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrLine.WordCount">
+      <summary>
+            The number of words discovered within this line of text
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrLine.Words">
+      <summary>
+            Objects for word discovered within this line of text
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrLine.BaselineOffset">
+      <summary>
+            The displacement (signed distance) of the baseline of this text-line relative to its top edge (see <see cref="P:IronOcr.OcrResult.OcrLine.Y" />).  For example the bottom baseline would sit at the bottom of a letter 'o', "a" or any number.  The letters 'y' and 'g' have tails which drop below the baseline.
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrLine.BaselineAngle">
+      <summary>
+            The angle of skew (rotation) of the text, measured in counter-clockwise degrees.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrLine.Text">
+      <summary>
+             The full text of this line of words as a UTF-8 string.  EAch word is separated by a single 'space' character.
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrLine.ParagraphNumber">
+      <summary>
+            The paragraph in which this line was found
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrLine.LineNumber">
+      <summary>
+            The number of this line within its enclosing paragraph.  One based.
+            </summary>
+    </member>
+    <member name="T:IronOcr.OcrResult.OcrCharacter">
+      <summary>
+            An object representing each instance of each character (symbol) of readable text discovered with OCR.
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrCharacter.Location">
+      <summary>
+            The location and size of this character as discovered in <see cref="F:IronOcr.OcrResult.OcrPage.mImage" /></summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrCharacter.Confidence">
+      <summary>
+            The percentage statistical confidence that this character has been correctly identified.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrCharacter.Width">
+      <summary>
+            Width of the character in pixels.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrCharacter.Height">
+      <summary>
+            Height of the character in pixels.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrCharacter.X">
+      <summary>
+            Horizontal location of the character relative to the left edge of the page.  Measured in pixels.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrCharacter.Y">
+      <summary>
+            Vertical location of the character relative to the top edge of the page.  Measured in pixels.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrCharacter.Image">
+      <summary>
+            An image of this character
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrCharacter.Text">
+      <summary>
+            Return the characters as a single length UFT-8 string.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrCharacter.OcrObjectId">
+      <summary>
+            A unique name for this character instance within the OcrResults model.
+            </summary>
+    </member>
+    <member name="M:IronOcr.OcrResult.OcrCharacter.ToString">
+      <summary>
+            Return the characters as a single length UFT-8 string.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrCharacter.PageNumber">
+      <summary>
+            The OcrResult page number this character was found on
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrCharacter.ParagraphNumber">
+      <summary>
+            The paragraph in which this character was found
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrCharacter.LineNumber">
+      <summary>
+            The line number in which this character was found
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrCharacter.WordNumber">
+      <summary>
+            The word number in which this character was found
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrCharacter.CharacterNumber">
+      <summary>
+            The position of this character within the word it was forms a part of
+            </summary>
+    </member>
+    <member name="T:IronOcr.OcrResult.OcrWord">
+      <summary>
+            An object representing each word read by IronOcr
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrWord.Location">
+      <summary>
+            The location and size of this word as discovered in <see cref="F:IronOcr.OcrResult.OcrPage.mImage" /></summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrWord.Confidence">
+      <summary>
+            The percentage statistical confidence IronOcr has in analysis of this word.  Values range from 0-100. 
+            For higher contrast (lower Confidence scores for words which may have been read incorrectly, try setting 
+            <see cref="F:IronOcr.AdvancedOcr.Strategy" /> = <see cref="F:IronOcr.AdvancedOcr.OcrStrategy.Advanced" /></summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrWord.Width">
+      <summary>
+            Width of the word in pixels.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrWord.Height">
+      <summary>
+            Height of the word in pixels.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrWord.X">
+      <summary>
+            Horizontal location of the word relative to the left edge of the page.  Measured in pixels.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrWord.Y">
+      <summary>
+            Vertical location of the word relative to the top edge of the page.  Measured in pixels.
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrWord.Image">
+      <summary>
+            An image of this word
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrWord.PageNumber">
+      <summary>
+            The OcrResult page number this word was found on
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrWord.Characters">
+      <summary>
+            The individual characters which make up this word
+            </summary>
+    </member>
+    <member name="P:IronOcr.OcrResult.OcrWord.OcrObjectId">
+      <summary>
+            A unique name for this word within an <see cref="T:IronOcr.OcrResult" />.
+            </summary>
+    </member>
+    <member name="M:IronOcr.OcrResult.OcrWord.ToString">
+      <summary>
+            Return the word's <see cref="F:IronOcr.OcrResult.OcrWord.Text" /></summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrWord.Text">
+      <summary>
+            The word as read, rendered as a UTF-8 string with no whitespace.
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrWord.ParagraphNumber">
+      <summary>
+            The paragraph in which this word was found
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrWord.LineNumber">
+      <summary>
+            The line number in which this word was found
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrWord.WordNumber">
+      <summary>
+            The position of this word within a line of text
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrWord.LanguageCode">
+      <summary>
+            The natural language which IronOcr believes this word belongs to.
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrWord.FontIsItalic">
+      <summary>
+            Word is italic.
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrWord.FontIsBold">
+      <summary>
+            Word is printed bold.
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrWord.FontIsSerif">
+      <summary>
+            Word has serif markings
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrWord.FontIsUnderlined">
+      <summary>
+            Word is underlined
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrWord.FontIsFixedWidth">
+      <summary>
+            Word's typeface is fixed-width
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrWord.FontIsCaligraphic">
+      <summary>
+            Word is written in ornate or luminary script
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrWord.FontName">
+      <summary>
+            The name of the typeface this word was printed in.  If a typeface is unknown, the closest match will be returned.
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrWord.FontSize">
+      <summary>
+            The height of the typeface letters in this typeface.  Measured in pixels.
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.OcrWord.TextDirection">
+      <summary>
+            The direction in which this word should be read.
+            </summary>
+    </member>
+    <member name="T:IronOcr.OcrResult.TextFlow">
+      <summary>
+            The direction in which OCR text should be read.
+            For Example English text is read "LeftToRight"
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.TextFlow.LeftToRight">
+      <summary>
+            Text is read horizontally, left to right
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.TextFlow.RightToLeft">
+      <summary>
+            Text is read horizontally, right to left
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.TextFlow.TopToBottom">
+      <summary>
+            Text is read vertically, top to bottom (downwards in columns)
+            </summary>
+    </member>
+    <member name="F:IronOcr.OcrResult.TextFlow.BottomToTop">
+      <summary>
+            Text is read vertically, bottom to top (upwards in columns)
+            </summary>
+    </member>
+    <member name="T:IronOcr.NamespaceDoc">
+      <summary>
+            IronOcr is an industry leading .Net OCR library.  It provides cutting edge OCR technology in over 80 languages for C# and .Net framework software projects.
+            <para>http://ironsoftware.com/csharp/ocr/</para></summary>
+    </member>
+    <member name="T:IronOcr.AdvancedOcr">
+      <summary>
+            An advanced OCR engine which gives the developer access to advanced Image pro-processing and calibration settings.
+            See also <see cref="T:IronOcr.AutoOcr">IronOcr.AutoOcr</see> for a fully automated OCR Class with fewer settings.
+            </summary>
+    </member>
+    <member name="T:IronOcr.AdvancedOcr.OcrStrategy">
+      <summary>
+            IronOcr image text analysis algorithms
+            </summary>
+    </member>
+    <member name="F:IronOcr.AdvancedOcr.OcrStrategy.Fast">
+            Good speed to accuracy ratio
+        </member>
+    <member name="F:IronOcr.AdvancedOcr.OcrStrategy.Advanced">
+            Higher accuracy with longer OCR processing times.
+        </member>
+    <member name="T:IronOcr.AdvancedOcr.OcrColorSpace">
+      <summary>
+            IronOcr can scan images in full color for greater accuracy, or in black, white and gray for speed.
+            </summary>
+    </member>
+    <member name="F:IronOcr.AdvancedOcr.OcrColorSpace.GrayScale">
+      <summary>
+            Documents are converted to shades of Gray
+            </summary>
+    </member>
+    <member name="F:IronOcr.AdvancedOcr.OcrColorSpace.Color">
+      <summary>
+            Documents are scanned by the OCR software in full color
+            </summary>
+    </member>
+    <member name="T:IronOcr.AdvancedOcr.InputTypes">
+      <summary>
+            Types of document to expect to read.
+            </summary>
+    </member>
+    <member name="F:IronOcr.AdvancedOcr.InputTypes.AutoDetect">
+            IronOcr will inspect each image and make a conservative best guess.
+        </member>
+    <member name="F:IronOcr.AdvancedOcr.InputTypes.Document">
+             IronOcr will expect the input to be a paper or digital document.  This works well for a rendered images of digital files, paper &amp; film scans, as well as photographs of paper document.
+        </member>
+    <member name="F:IronOcr.AdvancedOcr.InputTypes.Snippet">
+             IronOcr will expect the input to be a single block of text cropped from an image, scan, document or a screen-shot
+        </member>
+    <member name="F:IronOcr.AdvancedOcr.Language">
+      <summary>
+            Natural Language of the scanned documents.  Default is English.
+            </summary>
+    </member>
+    <member name="F:IronOcr.AdvancedOcr.DetectWhiteTextOnDarkBackgrounds">
+      <summary>
+            Automatically detects and adjusts white text on darker backgrounds such as found in microfilm, negatives and some styles of graphic design.
+            </summary>
+    </member>
+    <member name="F:IronOcr.AdvancedOcr.RotateAndStraighten">
+      <summary>
+            AdvancedOcr will deskew and rotate images to be straight, upright, unbent and without perspective.
+            <para>RotateAndStraighten is a powerful tool, making imperfect scans OCR accurately. CPU/GPU intensive. </para></summary>
+    </member>
+    <member name="F:IronOcr.AdvancedOcr.CleanBackgroundNoise">
+      <summary>
+            AdvancedOcr will clean background 'noise' , dust, speckles and signs of paper away from printed text.  Works even scrupled, stained or damaged paper.
+            <para>RotateAndStraighten is a powerful tool, making imperfect scans OCR accurately. CPU/GPU intensive. </para></summary>
+    </member>
+    <member name="F:IronOcr.AdvancedOcr.EnhanceContrast">
+      <summary>
+            Enhances image contrast adaptively, which generally increases text readability both by humans ans machines.
+            </summary>
+    </member>
+    <member name="F:IronOcr.AdvancedOcr.EnhanceResolution">
+      <summary>
+            Re-renders low quality images at a higher DPI.
+            <para>IronOcr works faster and more accurately with high resolution images.  Useful for images scanned at under 250 DPI</para></summary>
+    </member>
+    <member name="F:IronOcr.AdvancedOcr.ReadBarCodes">
+      <summary>
+            Enables Barcodes to be extracted from OCR documents, alongside the text content.
+            </summary>
+    </member>
+    <member name="F:IronOcr.AdvancedOcr.ColorDepth">
+      <summary>
+            Bits of color per channel per pixel.
+            Lower ColorDepth can reduce scanning time for documents that also contain many colors or images.
+            A value of ZERO will result in image color depths not being modified from the original source image.
+            </summary>
+    </member>
+    <member name="F:IronOcr.AdvancedOcr.ColorSpace">
+      <summary>
+            OCR documents can be scanned in GreyScale to reduce processing time.  This may not work well for low-contrast text on a non-white backgrounds.
+            </summary>
+    </member>
+    <member name="F:IronOcr.AdvancedOcr.Strategy">
+      <summary>
+            Algorithm to be used for OCR text analysis.
+            </summary>
+    </member>
+    <member name="F:IronOcr.AdvancedOcr.InputImageType">
+      <summary>
+            Hints the OCR Engine about the type of image being scanned, which can reduce OCR time and increase accuracy.
+            </summary>
+    </member>
+    <!-- Badly formed XML comment ignored for member "F:IronOcr.AdvancedOcr.AcceptedOcrCharacters" -->
+    <member name="M:IronOcr.AdvancedOcr.Read(System.String)">
+      <summary>
+            Performs OCR on an Image.
+            </summary>
+      <param name="ImageFilePath">Document to be scanned as an image file path.</param>
+      <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence etc.</returns>
+    </member>
+    <member name="M:IronOcr.AdvancedOcr.Read(System.Collections.Generic.IEnumerable{System.String})">
+      <summary>
+            Performs OCR on multiple  Images using multi-threaded parallel processing
+            </summary>
+      <param name="ImageFilePaths">Documents to be scanned as an image file path.</param>
+      <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence etc.</returns>
+    </member>
+    <member name="M:IronOcr.AdvancedOcr.Read(System.Drawing.Image)">
+      <summary>
+            Performs OCR on an Image.
+            </summary>
+      <param name="Image">Document to be scanned as a System.Drawing.Image</param>
+      <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence  etc.</returns>
+    </member>
+    <member name="M:IronOcr.AdvancedOcr.Read(System.Collections.Generic.IEnumerable{System.Drawing.Image})">
+      <summary>
+            Performs OCR on multiple Images simultaneously using parallel multi threading;
+            </summary>
+      <param name="Images">Document to be scanned as a System.Drawing.Image</param>
+      <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence  etc.</returns>
+    </member>
+    <member name="M:IronOcr.AdvancedOcr.Read(System.Drawing.Bitmap)">
+      <summary>
+            Performs OCR on an Image.
+            </summary>
+      <param name="Bitmap">Document to be scanned as a System.Drawing.Bitmap</param>
+      <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence, etc.</returns>
+    </member>
+    <member name="M:IronOcr.AdvancedOcr.Read(System.Collections.Generic.IEnumerable{System.Drawing.Bitmap})">
+      <summary>
+            Performs OCR on multiple Images in parallel using multi-threading;
+            </summary>
+      <param name="Bitmaps">Documents to be scanned as an IEnumerable of System.Drawing.Bitmap</param>
+      <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence, etc.</returns>
+    </member>
+    <member name="M:IronOcr.AdvancedOcr.ReadPdf(System.String,System.Collections.Generic.IEnumerable{System.Int32})">
+      <summary>
+            Performs OCR on an PDF Document.
+            </summary>
+      <param name="PdfFilePath">PDF Document to be converted back to text.</param>
+      <param name="PageRange">
+      </param>Optional enumerable list of pages.  Only these page numbers will have OCR performed.
+            <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence, etc.</returns></member>
+    <member name="M:IronOcr.AdvancedOcr.ReadPdf(System.Byte[],System.Collections.Generic.IEnumerable{System.Int32})">
+      <summary>
+            Performs OCR on an PDF Document.
+            </summary>
+      <param name="PdfBinaryData">The binary data for a PDF Document to be converted back to text. </param>
+      <param name="PageRange">
+      </param>Optional enumerable list of pages.  Only these page numbers will have OCR performed.
+            <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence, etc.</returns></member>
+    <member name="M:IronOcr.AdvancedOcr.ReadPdf(System.String,System.Int32)">
+      <summary>
+            Performs OCR on one page of a PDF Document.
+            </summary>
+      <param name="PdfFilePath">PDF Document to be converted back to text.</param>
+      <param name="PageNumber">
+      </param>Page number to OCR.  The first page is 1 rather than 0.
+            <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence, etc.</returns></member>
+    <member name="M:IronOcr.AdvancedOcr.ReadPdf(System.Byte[],System.Int32)">
+      <summary>
+            Performs OCR on one page an PDF Document.
+            </summary>
+      <param name="PdfBinaryData">The binary data for a PDF Document to be converted back to text. </param>
+      <param name="PageNumber">
+      </param>Page number to OCR.  The first page is 1 rather than 0.
+            <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence, etc.</returns></member>
+    <member name="M:IronOcr.AdvancedOcr.ReadPdf(System.IO.Stream,System.Int32)">
+      <summary>
+            Performs OCR on one page an PDF Document.
+            </summary>
+      <param name="PdfStreamData">The stream data for a PDF Document to be converted back to text. </param>
+      <param name="PageNumber">
+      </param>Page number to OCR.  The first page is 1 rather than 0.
+            <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence, etc.</returns></member>
+    <member name="M:IronOcr.AdvancedOcr.ReadPdf(System.IO.Stream,System.Collections.Generic.IEnumerable{System.Int32})">
+      <summary>
+            Performs OCR on an PDF Document.
+            </summary>
+      <param name="PdfStreamData">The stream data for a PDF Document to be converted back to text. </param>
+      <param name="PageRange">
+      </param>Optional enumerable list of pages.  Only these page numbers will have OCR performed.
+            <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence, etc.</returns></member>
+    <member name="M:IronOcr.AdvancedOcr.Read(System.String,System.Drawing.Rectangle)">
+      <summary>
+            Performs OCR on an Image.
+            <para>Only Text and Barcodes within the CropArea will be scanned</para></summary>
+      <param name="ImageFilePath">Document to be scanned as an image file path.</param>
+      <param name="CropArea">A rectangular area of the image to be scanned for OCR.</param>
+      <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence etc.</returns>
+    </member>
+    <member name="M:IronOcr.AdvancedOcr.Read(System.Drawing.Image,System.Drawing.Rectangle)">
+      <summary>
+            Performs OCR on an Image.
+            <para>Only Text and Barcodes within the CropArea will be scanned</para></summary>
+      <param name="Image">Document to be scanned as a System.Drawing.Image</param>
+      <param name="CropArea">A rectangular area of the image to be scanned for OCR.</param>
+      <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence etc.</returns>
+    </member>
+    <member name="M:IronOcr.AdvancedOcr.Read(System.Drawing.Bitmap,System.Drawing.Rectangle)">
+      <summary>
+            Performs OCR on an Image.
+            <para>Only Text and Barcodes within the CropArea will be scanned</para></summary>
+      <param name="Bitmap">Document to be scanned as a System.Drawing.Bitmap</param>
+      <param name="CropArea">A rectangular area of the image to be scanned for OCR.</param>
+      <returns> Returns Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence etc.</returns>
+    </member>
+    <member name="M:IronOcr.AdvancedOcr.ReadMultiThreaded(System.Collections.Generic.IEnumerable{System.String},System.Int32)">
+      <summary>
+            Performs OCR on multiple images simultaneously, using multiple threads and cores for the best performance.
+            </summary>
+      <param name="ImageFilePaths">File paths to multiple images</param>
+      <param name="MaximumNumberOfThreads">The maximum number of document pages to be read simultaneously.</param>
+      <returns>
+            Returns paginated results for all pages, containing Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence etc.
+            </returns>
+    </member>
+    <member name="M:IronOcr.AdvancedOcr.ReadMultiThreaded(System.Collections.Generic.IEnumerable{System.Drawing.Image},System.Int32)">
+      <summary>
+            Performs OCR on multiple images simultaneously, using multiple threads and cores for the best performance.
+            </summary>
+      <param name="Images">Multiple document pages to be scanned</param>
+      <param name="MaximumNumberOfThreads">The maximum number of document pages to be read simultaneously.</param>
+            Returns paginated results for all pages, containing Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence etc.
+        </member>
+    <member name="M:IronOcr.AdvancedOcr.ReadMultiThreaded(System.Collections.Generic.IEnumerable{System.Drawing.Bitmap},System.Int32)">
+      <summary>
+            Performs OCR on multiple images simultaneously, using multiple threads and cores for the best performance.
+            </summary>
+      <param name="Bitmaps">Multiple document pages to be scanned</param>
+      <param name="MaximumNumberOfThreads">The maximum number of document pages to be read simultaneously.</param>
+            Returns paginated results for all pages, containing Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence etc.
+        </member>
+    <member name="M:IronOcr.AdvancedOcr.ReadMultiThreaded(System.Collections.Generic.IEnumerable{System.String},System.Drawing.Rectangle,System.Int32)">
+      <summary>
+            Performs OCR on multiple images simultaneously, using multiple threads and cores for the best performance.
+            </summary>
+      <param name="ImageFilePaths">File paths to multiple images</param>
+      <param name="CropArea">A rectangular area of the images to be scanned for OCR.</param>
+      <param name="MaximumNumberOfThreads">The maximum number of document pages to be read simultaneously.</param>
+      <returns>
+            Returns paginated results for all pages, containing Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence etc.
+            </returns>
+    </member>
+    <member name="M:IronOcr.AdvancedOcr.ReadMultiThreaded(System.Collections.Generic.IEnumerable{System.Drawing.Image},System.Drawing.Rectangle,System.Int32)">
+      <summary>
+            Performs OCR on multiple images simultaneously, using multiple threads and cores for the best performance.
+            </summary>
+      <param name="Images">Multiple document pages to be scanned</param>
+      <param name="CropArea">A rectangular area of the images to be scanned for OCR.</param>
+      <param name="MaximumNumberOfThreads">The maximum number of document pages to be read simultaneously.</param>
+            Returns paginated results for all pages, containing Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence etc.
+        </member>
+    <member name="M:IronOcr.AdvancedOcr.ReadMultiThreaded(System.Collections.Generic.IEnumerable{System.Drawing.Bitmap},System.Drawing.Rectangle,System.Int32)">
+      <summary>
+            Performs OCR on multiple images simultaneously, using multiple threads and cores for the best performance.
+            </summary>
+      <param name="Bitmaps">Multiple document pages to be scanned</param>
+      <param name="CropArea">A rectangular area of the images to be scanned for OCR.</param>
+      <param name="MaximumNumberOfThreads">The maximum number of document pages to be read simultaneously.</param>
+            Returns paginated results for all pages, containing Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence etc.
+        </member>
+    <member name="M:IronOcr.AdvancedOcr.ReadMultiFrameTiff(System.String)">
+      <summary>
+            Performs OCR on a multi-pages image such as a multi-frame Tiff.  Also works on GIF files.
+            </summary>
+      <param name="TiffPath">File path to a Tiff file with multiple pages/frames</param>&gt;
+            <returns>
+            Returns paginated OCR results for all pages of the Tiff, containing Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence etc.
+            </returns></member>
+    <member name="M:IronOcr.AdvancedOcr.ReadMultiFrameTiff(System.Drawing.Bitmap)">
+      <summary>
+            Performs OCR on a multi-pages image such as a multi-frame Tiff.  Also works on GIF files.
+            </summary>
+      <param name="Tiff">Systemn.Drawing.Bitmap of a Tiff file with multiple pages/frames</param>&gt;
+            <returns>
+            Returns paginated OCR results for all pages of the Tiff, containing Text, Barcodes, and an object model containing rich OCR data such as text-sizes, fonts, statistical confidence etc.
+            </returns></member>
+  </members>
+</doc>
