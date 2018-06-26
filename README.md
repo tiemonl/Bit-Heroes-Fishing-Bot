@@ -1,5 +1,16 @@
 # Bit Heroes Fishing Bot
 
+Table of Contents
+=================
+* [Introduction](#introduction)
+* [How to use](#how-to-use)
+	* [Getting started with the program](#getting-started-with-the-program)
+	* [Setting up the program](#setting-up-the-program)
+	* [Fishing](#fishing)
+* [Upcoming feature(s)](#upcoming-features)
+* [Feature request or bug report](#feature-request-or-bug-report)
+
+
 ## Introduction
 
 This program allows you to automatically fish for a set amount of bait. Just pick the amount of bait you want to use and press start and let the bot fish for you. This program is not 100%, however, it will always be better than a human. I do not guarantee a 100% catch rate, but I do guarantee a very high catch rate for very little effort.
