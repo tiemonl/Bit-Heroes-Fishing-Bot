@@ -43,6 +43,8 @@ Pull requests are ***welcomed*** and ***encouraged***!
 ## Upcoming feature(s)
 - Stop fishing after you catch a certain weight of fish to save bait for another event. i.e. Stop fishing if you catch a fish above 12 kg.
 - Minor bug fixes that few people may experience.
+	- Screen resolution must be set to 100% zoom.
+	- If on web browser, web browser zoom must also be set to 100%.
 
 ## Feature request or bug report
 To request a feature or report a bug, open up an [issue](https://github.com/tiemonl/Bit-Heroes-Fishing-Bot/issues) in GitHub.
