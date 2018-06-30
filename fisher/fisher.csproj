@@ -32,9 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IronOcr">
-      <HintPath>Z:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\IronOcr\bin\IronOcr.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />

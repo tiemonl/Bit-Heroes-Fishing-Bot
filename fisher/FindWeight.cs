@@ -8,8 +8,9 @@ using System.Drawing.Imaging;
 namespace fisher {
 	class FindWeight {
 		//static void Main(string[] args) {
-		//	Bitmap need = new Bitmap("C:\\Users\\Liam\\Dropbox\\Coding Shit\\Bit Heroes Fishing\\Weight\\zero.bmp");
-		//	Bitmap hay = new Bitmap("C:\\Users\\Liam\\Dropbox\\Coding Shit\\Bit Heroes Fishing\\fisher\\fisher\\bin\\Debug\\screenie.bmp");
+		//	Console.WriteLine(AppDomain.CurrentDomain.BaseDirectory);
+		//	Bitmap need = new Bitmap("..\\..\\..\\Weight\\zero.bmp");
+		//	Bitmap hay = new Bitmap(".\\fisher\\bin\\Debug\\screenie.bmp");
 		//	Point? pt = Find(hay, need);
 		//	Console.WriteLine(pt.ToString());
 		//	Console.ReadLine();
