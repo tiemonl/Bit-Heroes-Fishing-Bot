@@ -1,15 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace fisher {
 	class MethodHelper {
+
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="usingSteam">Determines whether the user is using Steam or Kongregate for the program.</param>
+		/// <param name="rod">Determines which fishing rod the user is using to fish</param>
+		public MethodHelper(bool usingSteam, int rod) {
+			steam = usingSteam;
+			rodType = rod;
+		}
 
 		public partial class NativeMethods {
 
@@ -50,11 +61,188 @@ namespace fisher {
 		private const int MOUSEEVENTF_MIDDLEUP = 0x0040;
 		private const int MOUSEEVENTF_ABSOLUTE = 0x8000;
 
+		private bool steam;
+		private int rodType;
+
+		FindWeight findWeight = new FindWeight();
+
 		public static void LeftClick(Point point) {
 			NativeMethods.mouse_event(MOUSEEVENTF_LEFTDOWN, point.X, point.Y, 0, 0);
 			NativeMethods.mouse_event(MOUSEEVENTF_LEFTUP, point.X, point.Y, 0, 0);
 		}
 
+		//----------------------------------------------------------------------------------------------------------//
+		//-------------------------------------------Screen Pixel methods-------------------------------------------//
+		//----------------------------------------------------------------------------------------------------------//
+
+
+		public Color GetPixelColor(int x, int y) {
+			//Cursor.Position = new Point(x, y);
+			IntPtr hdc = NativeMethods.GetDC(IntPtr.Zero);
+			uint pixel = NativeMethods.GetPixel(hdc, x, y);
+			NativeMethods.ReleaseDC(IntPtr.Zero, hdc);
+			Color color = Color.FromArgb((int)(pixel & 0x000000FF),
+						 (int)(pixel & 0x0000FF00) >> 8,
+						 (int)(pixel & 0x00FF0000) >> 16);
+			return color;
+		}
+
+		private static Bitmap GetScreenShot() {
+			Bitmap result = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height, PixelFormat.Format32bppArgb);
+			{
+				using (Graphics gfx = Graphics.FromImage(result)) {
+					gfx.CopyFromScreen(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y, 0, 0, 
+						Screen.PrimaryScreen.Bounds.Size, CopyPixelOperation.SourceCopy);
+				}
+			}
+			return result;
+		}
+		public Point FindColor(Color color) {
+
+			int searchValue = color.ToArgb();
+			Point result = new Point();
+			using (Bitmap bmp = GetScreenShot()) {
+				for (int x = 0; x < bmp.Width; x++) {
+					for (int y = 0; y < bmp.Height; y++) {
+						//Cursor.Position = new Point(x, y);
+						if (searchValue.Equals(bmp.GetPixel(x, y).ToArgb()))
+							return result = new Point(x + 30, y);
+					}
+				}
+			}
+			return result;
+		}
+
+		//---------------------------------------------------------------------------------------------------------//
+		//-----------------------------------------------Find Weight-----------------------------------------------//
+		//---------------------------------------------------------------------------------------------------------//
+
+
+		public void getFishWeight(Point locationTopLeftWeightScreenshot) {
+			Rectangle section = new Rectangle(locationTopLeftWeightScreenshot, new Size(185, 80));
+
+			Bitmap screenshot = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height, PixelFormat.Format32bppArgb);
+			using (Graphics g = Graphics.FromImage(screenshot)) {
+				g.CopyFromScreen(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y, 0, 0, Screen.PrimaryScreen.Bounds.Size, CopyPixelOperation.SourceCopy);
+			}
+			CropImage(screenshot, section).Save("weightOfFish.bmp", ImageFormat.Bmp);
+		}
+
+		public static Bitmap CropImage(Bitmap source, Rectangle section) {
+			// An empty bitmap which will hold the cropped image
+			Bitmap bmp = new Bitmap(section.Width, section.Height);
+
+			Graphics g = Graphics.FromImage(bmp);
+
+			// Draw the given area (section) of the source image
+			// at location 0,0 on the empty bitmap (bmp)
+			g.DrawImage(source, 0, 0, section, GraphicsUnit.Pixel);
+
+			return bmp;
+		}
+
+		//---------------------------------------------------------------------------------------------------------//
+		//------------------------------------------------Debugging------------------------------------------------//
+		//---------------------------------------------------------------------------------------------------------//
+
+		public Color getcolorlist(int x, int y) {
+			List<Color> colorList = new List<Color>();
+			var color = GetPixelColor(x, y);
+			colorList.Add(color);
+			return color;
+		}
+
+		public void getTimes(Point location, Color color) {
+			StringBuilder stringBuilder = new StringBuilder();
+			long sum = 0;
+			Stopwatch s = new Stopwatch();
+			List<long> times = new List<long>();
+			bool blue = true;
+			int x = location.X;
+			int y = location.Y;
+			while (times.Count < 10) {
+				var c = GetPixelColor(x, y);
+				if (c.R == color.R && c.G == color.G && c.B == color.B) {
+					blue = true;
+					s.Reset();
+					s.Start();
+					Thread.Sleep(200);
+					while (blue) {
+						Color c1 = GetPixelColor(x, y);
+						if (c1.R == color.R && c1.G == color.G && c1.B == color.B) {
+							s.Stop();
+							times.Add(s.ElapsedMilliseconds);
+							blue = false;
+						}
+					}
+				}
+			}
+			if (steam) {
+				stringBuilder.Append("Platform: Steam\n");
+			} else
+				stringBuilder.Append("Platform: Kong\n");
+
+			int i = 1;
+			foreach (var item in times) {
+
+				stringBuilder.Append(i + ": ").Append(item).Append("\n");
+				++i;
+				sum += item;
+			}
+			sum = sum / times.Count();
+			stringBuilder.Append("average: " + sum);
+			rodType = (int)sum;
+			MessageBox.Show(stringBuilder.ToString());
+
+		}
+
+		public void getTimesMessageBox(Point locationStartButton) {
+			Color fullRangeCastColor = Color.FromArgb(026, 118, 241);
+			Point rangeAreaPosition = new Point(locationStartButton.X, locationStartButton.Y - 75);
+			Thread.Sleep(100);
+			getTimes(rangeAreaPosition, fullRangeCastColor);
+			Thread.Sleep(500);
+		}
+
+		//---------------------------------------------------------------------------------------------------------//
+		//------------------------------------------Auto clicking helpers------------------------------------------//
+		//---------------------------------------------------------------------------------------------------------//
+		public void startCast(Point locationStartButton) {
+			if (GetPixelColor(locationStartButton.X, locationStartButton.Y).Equals(Color.FromArgb(155, 208, 30))) {
+				Cursor.Position = locationStartButton;
+				LeftClick(locationStartButton);
+			}
+			Color fullRangeCastColor = Color.FromArgb(026, 118, 241);
+			Point rangeAreaPosition = new Point(locationStartButton.X, locationStartButton.Y - 75);
+			Thread.Sleep(100);
+			castRod(rangeAreaPosition, fullRangeCastColor);
+		}
+
+		public void castRod(Point location, Color color) {
+			int x = location.X;
+			int y = location.Y;
+			//int sleeptime = rodType;
+			while (true) {
+				var c = GetPixelColor(x, y);
+				if (c.R == color.R && c.G == color.G && c.B == color.B) {
+					Thread.Sleep(rodType);
+					SendKeys.Send(" ");
+					return;
+				}
+			}
+		}
+		public void catchFish(Point location, Color color) {
+			Cursor.Position = location;
+			int x = location.X;
+			int y = location.Y;
+			while (true) {
+				var c = GetPixelColor(x, y);
+				if (c.R == color.R && c.G == color.G && c.B == color.B) {
+					SendKeys.Send(" ");
+					return;
+				}
+			}
+		}
 
 		public void fishGotAwayClick(Point location) {
 			Cursor.Position = location;

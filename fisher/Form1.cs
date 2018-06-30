@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Text;
 using System.Windows.Forms;
 using System.ComponentModel;
-using System.Threading.Tasks;
 
 namespace fisher {
 	public partial class Form1 : Form {
@@ -55,9 +49,9 @@ namespace fisher {
 		private const int MOUSEEVENTF_MIDDLEUP = 0x0040;
 		private const int MOUSEEVENTF_ABSOLUTE = 0x8000;
 
-		private bool steam;
+		private static bool steam;
 		private static int rodType;
-		private static Point locationCastCatchButton;
+		private static Point locationStartButton;
 		private static Point locationCloseShellDialogBox;
 		private static Point locationTradeFishButton;
 		private static Point locationCloseItGotAwayButton;
@@ -65,6 +59,7 @@ namespace fisher {
 		private static Point locationJunkItem;
 		private static Point locationTopLeftWeightScreenshot;
 		private static Point locationBottomRightWeightScreenshot;
+		private static Point location100Position;
 
 		Color startButtonGreen = Color.FromArgb(155, 208, 30);
 		Color castButtonBlue = Color.FromArgb(030, 170, 208);
@@ -72,22 +67,14 @@ namespace fisher {
 		Color colorTimerCaughtFishKong = Color.FromArgb(56, 255, 56);
 		Color colorTimerCaughtFishSteam = Color.FromArgb(59, 255, 59);
 		Color colorJunkItem = Color.FromArgb(255, 255, 255);
+		Color oneHundredCatchColor = Color.FromArgb(77, 254, 0);
 
-		List<Color> colorList = new List<Color>();
-
-		FindWeight findWeight = new FindWeight();
-
-		MethodHelper helper = new MethodHelper();
+		MethodHelper helper;
 		#endregion
 
 
-
-		public static void LeftClick(Point point) {
-			NativeMethods.mouse_event(MOUSEEVENTF_LEFTDOWN, point.X, point.Y, 0, 0);
-			NativeMethods.mouse_event(MOUSEEVENTF_LEFTUP, point.X, point.Y, 0, 0);
-		}
-
 		public Form1() {
+
 			InitializeComponent();
 
 			backgroundThread.WorkerReportsProgress = true;
@@ -101,15 +88,20 @@ namespace fisher {
 			spinningRod.CheckedChanged += new EventHandler(rodType_CheckedChanged);
 			flyRod.CheckedChanged += new EventHandler(rodType_CheckedChanged);
 			legRod.CheckedChanged += new EventHandler(rodType_CheckedChanged);
+			castCatchLocationLbl.Text = "Cast/Catch Location:\nPress start button when on fishing start screen";
 
-			KeyPreview = true;
-			castCatchLocationLbl.Text = "Cast/Catch Location:\nPress button when on fishing start screen";
-
-			//steamButton.Enabled = false;
 			rodChoiceGroupBox.Enabled = false;
+			baitToUseText.Enabled = false;
 			findLocationBtn.Enabled = false;
-		}
+			autoBtn.Enabled = false;
+			cancelAutoModeBtn.Enabled = false;
+			
 
+		}
+		/// <summary>
+		/// This determines which radio button was clicked.
+		/// This returns whether the user is using Steam or Kongregate to fish.
+		/// </summary>
 		private void platform_CheckedChanged(object sender, EventArgs e) {
 			RadioButton radioButton = sender as RadioButton;
 
@@ -121,6 +113,12 @@ namespace fisher {
 			rodChoiceGroupBox.Enabled = true;
 		}
 
+		/// <summary>
+		/// This determines which radio button was clicked.
+		/// Each rod has a different timing.
+		/// The timing is the time it takes for the casting bar to go from its max value, down to its lowest point and back up to its max value.
+		/// I use this method of fishing as it has netted better results then clicking cast as soon as the program detects the casting bar at its max value.
+		/// </summary>
 		private void rodType_CheckedChanged(object sender, EventArgs e) {
 			RadioButton radioButton = sender as RadioButton;
 
@@ -150,218 +148,49 @@ namespace fisher {
 				else
 					rodType = 1660;
 			}
+			helper = new MethodHelper(steam, rodType);
+			baitToUseText.Enabled = true;
 			findLocationBtn.Enabled = true;
 		}
 
-		private void Timer(Point location, Color color) {
-			Stopwatch s = new Stopwatch();
-			s.Start();
-			int x = location.X;
-			int y = location.Y;
-			//int sleeptime = rodType;
-			while (true) {
-				var c = GetPixelColor(x, y);
-				if (c.R == color.R && c.G == color.G && c.B == color.B) {
-
-					s.Stop();
-					MessageBox.Show(s.ElapsedMilliseconds.ToString());
-					return;
-				}
-			}
-		}
-		private void castRod(Point location, Color color) {
-			int x = location.X;
-			int y = location.Y;
-			//int sleeptime = rodType;
-			while (true) {
-				var c = GetPixelColor(x, y);
-				if (c.R == color.R && c.G == color.G && c.B == color.B) {
-					Thread.Sleep(rodType);
-					SendKeys.Send(" ");
-					return;
-				}
-			}
-		}
-		private void catchFish(Point location, Color color) {
-			int x = location.X;
-			int y = location.Y;
-			while (true) {
-				var c = GetPixelColor(x, y);
-				if (c.R == color.R && c.G == color.G && c.B == color.B) {
-					SendKeys.Send(" ");
-					return;
-				}
-			}
-		}
-		public void getTimes(Point location, Color color) {
-			StringBuilder stringBuilder = new StringBuilder();
-			long sum = 0;
-			Stopwatch s = new Stopwatch();
-			List<long> times = new List<long>();
-			bool blue = true;
-			int x = location.X;
-			int y = location.Y;
-			while (times.Count < 10) {
-				var c = GetPixelColor(x, y);
-				if (c.R == color.R && c.G == color.G && c.B == color.B) {
-					blue = true;
-					s.Reset();
-					s.Start();
-					Thread.Sleep(200);
-					while (blue) {
-						Color c1 = GetPixelColor(x, y);
-						if (c1.R == color.R && c1.G == color.G && c1.B == color.B) {
-							s.Stop();
-							times.Add(s.ElapsedMilliseconds);
-							blue = false;
-						}
-					}
-				}
-			}
-
-			if (steam) {
-				stringBuilder.Append("Platform: Steam");
-			} else
-				stringBuilder.Append("Platform: Kong");
-
-			int i = 1;
-			foreach (var item in times) {
-
-				stringBuilder.Append(i + ": ").Append(item).Append("\n");
-				++i;
-				sum += item;
-			}
-			sum = sum / times.Count();
-			stringBuilder.Append("average: " + sum);
-			rodType = (int)sum;
-			MessageBox.Show(stringBuilder.ToString());
-
-		}
-		public Color getcolorlist(int x, int y) {
-			var color = GetPixelColor(x, y);
-			colorList.Add(color);
-			return color;
-		}
-		static public Color GetPixelColor(int x, int y) {
-			//Cursor.Position = new Point(x, y);
-			IntPtr hdc = NativeMethods.GetDC(IntPtr.Zero);
-			uint pixel = NativeMethods.GetPixel(hdc, x, y);
-			NativeMethods.ReleaseDC(IntPtr.Zero, hdc);
-			Color color = Color.FromArgb((int)(pixel & 0x000000FF),
-						 (int)(pixel & 0x0000FF00) >> 8,
-						 (int)(pixel & 0x00FF0000) >> 16);
-			return color;
-		}
-
-		private static Bitmap GetScreenShot() {
-			Bitmap result = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height, PixelFormat.Format32bppArgb);
-			{
-				using (Graphics gfx = Graphics.FromImage(result)) {
-					gfx.CopyFromScreen(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y, 0, 0, Screen.PrimaryScreen.Bounds.Size, CopyPixelOperation.SourceCopy);
-				}
-			}
-			return result;
-		}
-		private static Point FindColor(Color color) {
-
-			int searchValue = color.ToArgb();
-			Point result = new Point();
-			using (Bitmap bmp = GetScreenShot()) {
-				for (int x = 0; x < bmp.Width; x++) {
-					for (int y = 0; y < bmp.Height; y++) {
-						//Cursor.Position = new Point(x, y);
-						if (searchValue.Equals(bmp.GetPixel(x, y).ToArgb()))
-							return result = new Point(x + 30, y);
-					}
-				}
-			}
-			return result;
-		}
-		private static void GetScreenie() {
-			Rectangle section = new Rectangle(locationTopLeftWeightScreenshot, new Size(185, 80));
-
-			Bitmap screenshot = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height, PixelFormat.Format32bppArgb);
-			using (Graphics g = Graphics.FromImage(screenshot)) {
-				g.CopyFromScreen(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y, 0, 0, Screen.PrimaryScreen.Bounds.Size, CopyPixelOperation.SourceCopy);
-			}
-			CropImage(screenshot, section).Save("weightOfFish.bmp", ImageFormat.Bmp);
-		}
-
-		public static Bitmap CropImage(Bitmap source, Rectangle section) {
-			// An empty bitmap which will hold the cropped image
-			Bitmap bmp = new Bitmap(section.Width, section.Height);
-
-			Graphics g = Graphics.FromImage(bmp);
-
-			// Draw the given area (section) of the source image
-			// at location 0,0 on the empty bitmap (bmp)
-			g.DrawImage(source, 0, 0, section, GraphicsUnit.Pixel);
-
-			return bmp;
-		}
 
 		private void CastCatchLocation_Click(object sender, EventArgs e) {
 
-			locationCastCatchButton = FindColor(startButtonGreen);
+			locationStartButton = helper.FindColor(startButtonGreen);
 			if (steam) {
-				locationTradeFishButton = new Point(locationCastCatchButton.X, locationCastCatchButton.Y - 40);
-				locationCloseShellDialogBox = new Point(locationCastCatchButton.X + 270, locationCastCatchButton.Y - 350);
-				locationCloseItGotAwayButton = new Point(locationCastCatchButton.X + 20, locationCastCatchButton.Y - 130);
-				locationTimerCaughtFish = new Point(locationCastCatchButton.X - 200, locationCastCatchButton.Y - 70);
-				locationJunkItem = new Point(locationCastCatchButton.X + 40, locationCastCatchButton.Y - 180);
-				locationTopLeftWeightScreenshot = new Point(locationCastCatchButton.X - 25, locationCastCatchButton.Y - 130);
-				locationBottomRightWeightScreenshot = new Point(locationCastCatchButton.X + 160, locationCastCatchButton.Y - 50);
+				locationTradeFishButton = new Point(locationStartButton.X, locationStartButton.Y - 40);
+				locationCloseShellDialogBox = new Point(locationStartButton.X + 270, locationStartButton.Y - 350);
+				locationCloseItGotAwayButton = new Point(locationStartButton.X + 20, locationStartButton.Y - 130);
+				locationTimerCaughtFish = new Point(locationStartButton.X - 200, locationStartButton.Y - 70);
+				locationJunkItem = new Point(locationStartButton.X + 40, locationStartButton.Y - 180);
+				locationTopLeftWeightScreenshot = new Point(locationStartButton.X - 25, locationStartButton.Y - 130);
+				locationBottomRightWeightScreenshot = new Point(locationStartButton.X + 160, locationStartButton.Y - 50);
+				location100Position = new Point(locationStartButton.X + 370, locationStartButton.Y - 81);
 			} else {
-				locationTradeFishButton = new Point(locationCastCatchButton.X, locationCastCatchButton.Y - 15);
-				locationCloseShellDialogBox = new Point(locationCastCatchButton.X + 265, locationCastCatchButton.Y - 325);
-				locationCloseItGotAwayButton = new Point(locationCastCatchButton.X + 30, locationCastCatchButton.Y - 100);
-				locationTimerCaughtFish = new Point(locationCastCatchButton.X - 200, locationCastCatchButton.Y - 70);
-				locationJunkItem = new Point(locationCastCatchButton.X + 100, locationCastCatchButton.Y - 155);
-				locationTopLeftWeightScreenshot = new Point(locationCastCatchButton.X - 25, locationCastCatchButton.Y - 130);
-				locationBottomRightWeightScreenshot = new Point(locationCastCatchButton.X + 160, locationCastCatchButton.Y - 50);
-				
-			}
-			castCatchLocationLbl.Text = "Cast/Catch Location:\n" + locationCastCatchButton.ToString();
-			//getTimes(new Point(castCatchLocation.X, castCatchLocation.Y - 75), Color.FromArgb(026, 118, 241));
-		}
+				locationTradeFishButton = new Point(locationStartButton.X, locationStartButton.Y - 15);
+				locationCloseShellDialogBox = new Point(locationStartButton.X + 265, locationStartButton.Y - 325);
+				locationCloseItGotAwayButton = new Point(locationStartButton.X + 30, locationStartButton.Y - 100);
+				locationTimerCaughtFish = new Point(locationStartButton.X - 200, locationStartButton.Y - 70);
+				locationJunkItem = new Point(locationStartButton.X + 100, locationStartButton.Y - 155);
+				locationTopLeftWeightScreenshot = new Point(locationStartButton.X - 25, locationStartButton.Y - 130);
+				locationBottomRightWeightScreenshot = new Point(locationStartButton.X + 160, locationStartButton.Y - 50);
+				location100Position = new Point(locationStartButton.X + 373, locationStartButton.Y - 81);
 
-		private void castMethod() {
-			if (GetPixelColor(locationCastCatchButton.X, locationCastCatchButton.Y).Equals(Color.FromArgb(155, 208, 30))) {
-				Cursor.Position = locationCastCatchButton;
-				LeftClick(locationCastCatchButton);
 			}
-			Color fullRangeCastColor = Color.FromArgb(026, 118, 241);
-			Point rangeAreaPosition = new Point(locationCastCatchButton.X, locationCastCatchButton.Y - 75);
-			Thread.Sleep(100);
-			castRod(rangeAreaPosition, fullRangeCastColor);
-		}
-
-		private void catchFishMethod() {
-			Color oneHundredCatchColor = Color.FromArgb(77, 254, 0);
-			Point oneHundredPosition;
-			if (steam) {
-				oneHundredPosition = new Point(locationCastCatchButton.X + 370, locationCastCatchButton.Y - 81);
-			} else {
-				oneHundredPosition = new Point(locationCastCatchButton.X + 373, locationCastCatchButton.Y - 81);
-			}
-			//Cursor.Position = oneHundredPosition;
-			catchFish(oneHundredPosition, oneHundredCatchColor);
-
+			castCatchLocationLbl.Text = "Cast/Catch Location:\n" + locationStartButton.ToString();
+			autoBtn.Enabled = true;
+			cancelAutoModeBtn.Enabled = true;
 		}
 
 		private void getTimesBtn_Click(object sender, EventArgs e) {
-			Color fullRangeCastColor = Color.FromArgb(026, 118, 241);
-			Point rangeAreaPosition = new Point(locationCastCatchButton.X, locationCastCatchButton.Y - 75);
 			getTimesBtn.Enabled = false;
-			Thread.Sleep(100);
-			getTimes(rangeAreaPosition, fullRangeCastColor);
-			Thread.Sleep(500);
+			helper.getTimesMessageBox(locationStartButton);
 			getTimesBtn.Enabled = true;
 		}
+
+
 		private void autoBtn_Click(object sender, EventArgs e) {
-
 			backgroundThread.RunWorkerAsync();
-
 		}
 
 		private void backgroundThread_DoWork(object sender, DoWorkEventArgs e) {
@@ -380,30 +209,30 @@ namespace fisher {
 					printMessage(baitUsed, baitToUse, " bait used.\nPerforming cast.");
 					++baitUsed;
 					Invoke(new Action(() => Refresh()));
-					Invoke(new Action(() => castMethod()));
+					Invoke(new Action(() => helper.startCast(locationStartButton)));
 
 					while (caughtFish) {
 						printMessage(baitUsed, baitToUse, " bait used.\nWaiting for cast result.");
 						Invoke(new Action(() => Refresh()));
 						//performs cast
-						Color color = GetPixelColor(locationTimerCaughtFish.X, locationTimerCaughtFish.Y);
+						Color color = helper.GetPixelColor(locationTimerCaughtFish.X, locationTimerCaughtFish.Y);
 						if (color == colorTimerCaughtFishKong || color == colorTimerCaughtFishSteam) {
 							printMessage(baitUsed, baitToUse, " bait used.\nPerforming catch.");
 							Invoke(new Action(() => Refresh()));
-							Invoke(new Action(() => catchFishMethod()));
+							Invoke(new Action(() => helper.catchFish(location100Position, oneHundredCatchColor)));
 							Thread.Sleep(5000);
 							while (fishGetAway) {
 								//fish caught
-								if (GetPixelColor(locationTradeFishButton.X, locationTradeFishButton.Y) == startButtonGreen) {
+								if (helper.GetPixelColor(locationTradeFishButton.X, locationTradeFishButton.Y) == startButtonGreen) {
 									printMessage(baitUsed, baitToUse, " bait used.\nCaught.");
 									Invoke(new Action(() => Refresh()));
-									//GetScreenie();
+									//helper.getFishWeight(locationTopLeftWeightScreenshot);
 									Invoke(new Action(() => helper.tradeItemThenCloseSpace()));
 									fishGetAway = false;
 
 								}
 								//fish got away
-								else if (GetPixelColor(locationCloseItGotAwayButton.X, locationCloseItGotAwayButton.Y) == colorCloseItGotAwayButton) {
+								else if (helper.GetPixelColor(locationCloseItGotAwayButton.X, locationCloseItGotAwayButton.Y) == colorCloseItGotAwayButton) {
 									printMessage(baitUsed, baitToUse, " bait used.\nFish got away. Sorry :(");
 									Invoke(new Action(() => Refresh()));
 									helper.fishGotAwaySpace();
@@ -413,7 +242,7 @@ namespace fisher {
 							caughtFish = false;
 						}
 						// caught junk
-						else if (GetPixelColor(locationJunkItem.X, locationJunkItem.Y) == colorJunkItem) {
+						else if (helper.GetPixelColor(locationJunkItem.X, locationJunkItem.Y) == colorJunkItem) {
 							printMessage(baitUsed, baitToUse, " bait used.\nCaught junk");
 							Invoke(new Action(() => Refresh()));
 							Invoke(new Action(() => helper.tradeItemThenCloseSpace()));
