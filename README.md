@@ -1,6 +1,7 @@
 # Bit Heroes Fishing Bot
 
-[![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg)](https://github.com/tiemonl/Bit-Heroes-Fishing-Bot)
+[![GitHub issues](https://img.shields.io/github/issues/tiemonl/Bit-Heroes-Fishing-Bot.svg)](https://github.com/tiemonl/Bit-Heroes-Fishing-Bot/issues)
+[![Github All Releases](https://img.shields.io/github/downloads/tiemonl/Bit-Heroes-Fishing-Bot/total.svg)](https://github.com/tiemonl/Bit-Heroes-Fishing-Bot/releases)
 
 
 Table of Contents
