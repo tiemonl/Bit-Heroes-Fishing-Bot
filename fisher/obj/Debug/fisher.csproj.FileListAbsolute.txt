@@ -19,5 +19,3 @@ C:\Users\Liam\Dropbox\Coding Shit\Bit Heroes Fishing\fisher\fisher\obj\Debug\fis
 C:\Users\Liam\Dropbox\Coding Shit\Bit Heroes Fishing\fisher\fisher\obj\Debug\fisher.pdb
 C:\Users\tiemonl1\Dropbox\Coding Shit\Bit Heroes Fishing\fisher\fisher\obj\Debug\fisher.csprojResolveAssemblyReference.cache
 C:\Users\Liam\Dropbox\Coding Shit\Bit Heroes Fishing\fisher\fisher\obj\Debug\fisher.csprojResolveAssemblyReference.cache
-C:\Users\Liam\Dropbox\Coding Shit\Bit Heroes Fishing\fisher\fisher\bin\Debug\IronOcr.dll
-C:\Users\Liam\Dropbox\Coding Shit\Bit Heroes Fishing\fisher\fisher\bin\Debug\IronOcr.xml

@@ -88,11 +88,15 @@ namespace fisher {
 		}
 
 		private static Bitmap GetScreenShot() {
-			Bitmap result = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height, PixelFormat.Format32bppArgb);
+			int screenLeft = SystemInformation.VirtualScreen.Left;
+			int screenTop = SystemInformation.VirtualScreen.Top;
+			int screenWidth = SystemInformation.VirtualScreen.Width;
+			int screenHeight = SystemInformation.VirtualScreen.Height;
+
+			Bitmap result = new Bitmap(screenWidth, screenHeight, PixelFormat.Format32bppRgb);
 			{
 				using (Graphics gfx = Graphics.FromImage(result)) {
-					gfx.CopyFromScreen(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y, 0, 0, 
-						Screen.PrimaryScreen.Bounds.Size, CopyPixelOperation.SourceCopy);
+					gfx.CopyFromScreen(screenLeft, screenTop, 0, 0, result.Size, CopyPixelOperation.SourceCopy);
 				}
 			}
 			return result;
