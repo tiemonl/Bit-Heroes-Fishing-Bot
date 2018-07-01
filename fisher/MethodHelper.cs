@@ -88,6 +88,8 @@ namespace fisher {
 		}
 
 		private static Bitmap GetScreenShot() {
+			//Using `SystemInformation.VirtualScreen` rather than `Screen.PrimaryScreen` 
+			//ensures that the program can look at all screens for the start button.
 			int screenLeft = SystemInformation.VirtualScreen.Left;
 			int screenTop = SystemInformation.VirtualScreen.Top;
 			int screenWidth = SystemInformation.VirtualScreen.Width;
