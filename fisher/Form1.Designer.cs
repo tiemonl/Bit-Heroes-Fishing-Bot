@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
 			this.findLocationBtn = new System.Windows.Forms.Button();
 			this.castCatchLocationLbl = new System.Windows.Forms.Label();
 			this.rodChoiceGroupBox = new System.Windows.Forms.GroupBox();
@@ -42,13 +44,18 @@
 			this.getTimesBtn = new System.Windows.Forms.Button();
 			this.autoBtn = new System.Windows.Forms.Button();
 			this.debugAutoStepLbl = new System.Windows.Forms.Label();
-			this.label1 = new System.Windows.Forms.Label();
+			this.baitToUseLabel = new System.Windows.Forms.Label();
 			this.baitToUseText = new System.Windows.Forms.NumericUpDown();
 			this.backgroundThread = new System.ComponentModel.BackgroundWorker();
 			this.cancelAutoModeBtn = new System.Windows.Forms.Button();
+			this.debugOptions = new System.Windows.Forms.CheckBox();
+			this.currentRodTimerLblDebug = new System.Windows.Forms.Label();
+			this.rodTimerDebug = new System.Windows.Forms.NumericUpDown();
+			this.rodTimerDebugToolTip = new System.Windows.Forms.ToolTip(this.components);
 			this.rodChoiceGroupBox.SuspendLayout();
 			this.platformGroupBox.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.baitToUseText)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.rodTimerDebug)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// findLocationBtn
@@ -208,17 +215,17 @@
 			this.debugAutoStepLbl.Text = "0/0 bait used.";
 			this.debugAutoStepLbl.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			// 
-			// label1
+			// baitToUseLabel
 			// 
-			this.label1.Location = new System.Drawing.Point(16, 118);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(121, 16);
-			this.label1.TabIndex = 14;
-			this.label1.Text = "Bait to use:";
+			this.baitToUseLabel.Location = new System.Drawing.Point(9, 95);
+			this.baitToUseLabel.Name = "baitToUseLabel";
+			this.baitToUseLabel.Size = new System.Drawing.Size(121, 16);
+			this.baitToUseLabel.TabIndex = 14;
+			this.baitToUseLabel.Text = "Bait to use:";
 			// 
 			// baitToUseText
 			// 
-			this.baitToUseText.Location = new System.Drawing.Point(16, 137);
+			this.baitToUseText.Location = new System.Drawing.Point(12, 114);
 			this.baitToUseText.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -252,14 +259,68 @@
 			this.cancelAutoModeBtn.UseVisualStyleBackColor = true;
 			this.cancelAutoModeBtn.Click += new System.EventHandler(this.cancelAutoModeBtn_Click);
 			// 
+			// debugOptions
+			// 
+			this.debugOptions.AutoSize = true;
+			this.debugOptions.Location = new System.Drawing.Point(12, 155);
+			this.debugOptions.Name = "debugOptions";
+			this.debugOptions.Size = new System.Drawing.Size(97, 17);
+			this.debugOptions.TabIndex = 17;
+			this.debugOptions.Text = "Debug Options";
+			this.debugOptions.UseVisualStyleBackColor = true;
+			this.debugOptions.CheckedChanged += new System.EventHandler(this.debugOptions_CheckedChanged);
+			// 
+			// currentRodTimerLblDebug
+			// 
+			this.currentRodTimerLblDebug.Location = new System.Drawing.Point(366, 12);
+			this.currentRodTimerLblDebug.Name = "currentRodTimerLblDebug";
+			this.currentRodTimerLblDebug.Size = new System.Drawing.Size(100, 15);
+			this.currentRodTimerLblDebug.TabIndex = 18;
+			this.currentRodTimerLblDebug.Text = "Current Rod Timer:";
+			// 
+			// rodTimerDebug
+			// 
+			this.rodTimerDebug.Location = new System.Drawing.Point(366, 31);
+			this.rodTimerDebug.Maximum = new decimal(new int[] {
+            2000,
+            0,
+            0,
+            0});
+			this.rodTimerDebug.Minimum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+			this.rodTimerDebug.Name = "rodTimerDebug";
+			this.rodTimerDebug.Size = new System.Drawing.Size(100, 20);
+			this.rodTimerDebug.TabIndex = 19;
+			this.rodTimerDebug.Value = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+			this.rodTimerDebug.ValueChanged += new System.EventHandler(this.rodTimerDebug_ValueChanged);
+			// 
+			// rodTimerDebugToolTip
+			// 
+			this.rodTimerDebugToolTip.AutomaticDelay = 250;
+			this.rodTimerDebugToolTip.AutoPopDelay = 10000;
+			this.rodTimerDebugToolTip.InitialDelay = 250;
+			this.rodTimerDebugToolTip.ReshowDelay = 50;
+			this.rodTimerDebugToolTip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+			this.rodTimerDebugToolTip.ToolTipTitle = "Casting Timer Adjustment";
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(359, 310);
+			this.ClientSize = new System.Drawing.Size(484, 311);
+			this.Controls.Add(this.rodTimerDebug);
+			this.Controls.Add(this.currentRodTimerLblDebug);
+			this.Controls.Add(this.debugOptions);
 			this.Controls.Add(this.cancelAutoModeBtn);
 			this.Controls.Add(this.baitToUseText);
-			this.Controls.Add(this.label1);
+			this.Controls.Add(this.baitToUseLabel);
 			this.Controls.Add(this.debugAutoStepLbl);
 			this.Controls.Add(this.autoBtn);
 			this.Controls.Add(this.getTimesBtn);
@@ -267,14 +328,18 @@
 			this.Controls.Add(this.rodChoiceGroupBox);
 			this.Controls.Add(this.castCatchLocationLbl);
 			this.Controls.Add(this.findLocationBtn);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "Form1";
-			this.Text = "Fisher";
+			this.Text = "Fisher v1.2.0";
 			this.rodChoiceGroupBox.ResumeLayout(false);
 			this.rodChoiceGroupBox.PerformLayout();
 			this.platformGroupBox.ResumeLayout(false);
 			this.platformGroupBox.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.baitToUseText)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.rodTimerDebug)).EndInit();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
         }
 
@@ -294,10 +359,14 @@
         private System.Windows.Forms.Button getTimesBtn;
         private System.Windows.Forms.Button autoBtn;
         private System.Windows.Forms.Label debugAutoStepLbl;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label baitToUseLabel;
         private System.Windows.Forms.NumericUpDown baitToUseText;
 		private System.ComponentModel.BackgroundWorker backgroundThread;
 		private System.Windows.Forms.Button cancelAutoModeBtn;
+		private System.Windows.Forms.CheckBox debugOptions;
+		private System.Windows.Forms.Label currentRodTimerLblDebug;
+		private System.Windows.Forms.NumericUpDown rodTimerDebug;
+		private System.Windows.Forms.ToolTip rodTimerDebugToolTip;
 	}
 }
 

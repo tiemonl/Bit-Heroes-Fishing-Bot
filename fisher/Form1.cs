@@ -80,6 +80,10 @@ namespace fisher {
 			backgroundThread.WorkerReportsProgress = true;
 			backgroundThread.WorkerSupportsCancellation = true;
 
+			this.Size = new Size(375, 350);
+
+			rodTimerDebugToolTip.SetToolTip(rodTimerDebug, "Use this to adjust fishing timer to get a better catch result.\nAdd/subtract milliseconds (you shouldn't have to change more than 10 milliseconds)\ndepending on if you are stopping before the max value or going past the max.");
+
 			kongButton.CheckedChanged += new EventHandler(platform_CheckedChanged);
 			steamButton.CheckedChanged += new EventHandler(platform_CheckedChanged);
 
@@ -148,6 +152,7 @@ namespace fisher {
 				else
 					rodType = 1660;
 			}
+			rodTimerDebug.Value = rodType;
 			helper = new MethodHelper(steam, rodType);
 			baitToUseText.Enabled = true;
 			findLocationBtn.Enabled = true;
@@ -268,6 +273,20 @@ namespace fisher {
 			debugAutoStepLbl.Invoke((MethodInvoker)delegate {
 				debugAutoStepLbl.Text = baitUsed + "/" + baitToUse + msg;
 			});
+		}
+
+		private void debugOptions_CheckedChanged(object sender, EventArgs e) {
+			if (debugOptions.Checked) {
+				this.Size = new Size(500, 350);
+				
+			}
+			else {
+				this.Size = new Size(375, 350);
+			}
+		}
+
+		private void rodTimerDebug_ValueChanged(object sender, EventArgs e) {
+			rodType = (int)rodTimerDebug.Value;
 		}
 	}
 }
