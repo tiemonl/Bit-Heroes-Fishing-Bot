@@ -1,0 +1,28 @@
+
+Log Entry : 18:19:43 Friday, August 3, 2018
+  :
+  :In startCast
+{X=1490,Y=677}
+-6565858
+-------------------------------
+
+Log Entry : 18:20:45 Friday, August 3, 2018
+  :
+  :In startCast
+{X=921,Y=689}
+-6565858--Color [A=255, R=155, G=208, B=30]
+-------------------------------
+
+Log Entry : 18:24:06 Friday, August 3, 2018
+  :
+  :In startCast
+{X=1239,Y=658}
+Color [A=255, R=155, G=208, B=30]--Color [A=255, R=155, G=208, B=30]
+-------------------------------
+
+Log Entry : 18:40:08 Friday, August 3, 2018
+  :
+  :In startCast
+{X=3656,Y=714}
+Color [A=255, R=192, G=192, B=192]--Color [A=255, R=155, G=208, B=30]
+-------------------------------

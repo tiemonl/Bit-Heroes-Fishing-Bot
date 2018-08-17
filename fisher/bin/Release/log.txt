@@ -1,0 +1,55 @@
+
+Log Entry : 18:19:43 Friday, August 3, 2018
+  :
+  :end of IF
+-------------------------------
+
+Log Entry : 18:19:43 Friday, August 3, 2018
+  :
+  :after thread.sleep
+-------------------------------
+
+Log Entry : 18:19:43 Friday, August 3, 2018
+  :
+  :before while
+-------------------------------
+
+Log Entry : 18:20:45 Friday, August 3, 2018
+  :
+  :end of IF
+-------------------------------
+
+Log Entry : 18:20:45 Friday, August 3, 2018
+  :
+  :after thread.sleep
+-------------------------------
+
+Log Entry : 18:20:45 Friday, August 3, 2018
+  :
+  :before while
+-------------------------------
+
+Log Entry : 18:24:06 Friday, August 3, 2018
+  :
+  :end of IF
+-------------------------------
+
+Log Entry : 18:24:06 Friday, August 3, 2018
+  :
+  :after thread.sleep
+-------------------------------
+
+Log Entry : 18:24:06 Friday, August 3, 2018
+  :
+  :before while
+-------------------------------
+
+Log Entry : 18:40:08 Friday, August 3, 2018
+  :
+  :after thread.sleep
+-------------------------------
+
+Log Entry : 18:40:08 Friday, August 3, 2018
+  :
+  :before while
+-------------------------------

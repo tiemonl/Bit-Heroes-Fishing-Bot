@@ -211,7 +211,7 @@ namespace fisher {
 					//Performs cast
 					bool caughtFish = true;
 					bool fishGetAway = true;
-					printMessage(baitUsed, baitToUse, " bait used.\nPerforming cast.");
+					printMessage(baitUsed, baitToUse, " bait used.\nPerforming cast.\nTimer: " + rodType);
 					++baitUsed;
 					Invoke(new Action(() => Refresh()));
 					Invoke(new Action(() => helper.startCast(locationStartButton)));
@@ -287,6 +287,8 @@ namespace fisher {
 
 		private void rodTimerDebug_ValueChanged(object sender, EventArgs e) {
 			rodType = (int)rodTimerDebug.Value;
+			//initiliaze helper again to reflect the rodtype change.
+			helper = new MethodHelper(steam, rodType);
 		}
 	}
 }

@@ -187,9 +187,9 @@
 			// 
 			// getTimesBtn
 			// 
-			this.getTimesBtn.Location = new System.Drawing.Point(12, 398);
+			this.getTimesBtn.Location = new System.Drawing.Point(366, 67);
 			this.getTimesBtn.Name = "getTimesBtn";
-			this.getTimesBtn.Size = new System.Drawing.Size(314, 50);
+			this.getTimesBtn.Size = new System.Drawing.Size(100, 25);
 			this.getTimesBtn.TabIndex = 10;
 			this.getTimesBtn.Text = "Get Times";
 			this.getTimesBtn.UseVisualStyleBackColor = true;
@@ -331,7 +331,7 @@
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "Form1";
-			this.Text = "Fisher v1.2.0";
+			this.Text = "Fisher v1.2.1";
 			this.rodChoiceGroupBox.ResumeLayout(false);
 			this.rodChoiceGroupBox.PerformLayout();
 			this.platformGroupBox.ResumeLayout(false);
