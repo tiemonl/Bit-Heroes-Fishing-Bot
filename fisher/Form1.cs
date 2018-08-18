@@ -8,46 +8,7 @@ using System.ComponentModel;
 namespace fisher {
 	public partial class Form1 : Form {
 
-		#region DLLImport's and declarations
-
-		public partial class NativeMethods {
-
-			/// Return Type: BOOL->int
-			///fBlockIt: BOOL->int
-			[System.Runtime.InteropServices.DllImportAttribute("user32.dll", EntryPoint = "BlockInput")]
-			[return: System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.Bool)]
-			public static extern bool BlockInput([System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.Bool)] bool fBlockIt);
-
-
-			[DllImport("user32.dll")]
-			public static extern bool GetCursorPos(ref Point lpPoint);
-
-			[DllImport("user32")]
-			public static extern int SetCursorPos(int x, int y);
-
-			[DllImport("gdi32.dll", CharSet = CharSet.Auto, SetLastError = true, ExactSpelling = true)]
-			public static extern int BitBlt(IntPtr hDC, int x, int y, int nWidth, int nHeight, IntPtr hSrcDC, int xSrc, int ySrc, int dwRop);
-
-			[DllImport("user32.dll")]
-			public static extern IntPtr GetDC(IntPtr hwnd);
-
-			[DllImport("user32.dll")]
-			public static extern Int32 ReleaseDC(IntPtr hwnd, IntPtr hdc);
-
-			[DllImport("gdi32.dll")]
-			public static extern uint GetPixel(IntPtr hdc, int nXPos, int nYPos);
-
-			[DllImport("user32.dll")]
-			public static extern void mouse_event(int dwFlags, int dx, int dy, int dwData, int dwExtraInfo);
-		}
-		private const int MOUSEEVENTF_MOVE = 0x0001;
-		private const int MOUSEEVENTF_LEFTDOWN = 0x0002;
-		private const int MOUSEEVENTF_LEFTUP = 0x0004;
-		private const int MOUSEEVENTF_RIGHTDOWN = 0x0008;
-		private const int MOUSEEVENTF_RIGHTUP = 0x0010;
-		private const int MOUSEEVENTF_MIDDLEDOWN = 0x0020;
-		private const int MOUSEEVENTF_MIDDLEUP = 0x0040;
-		private const int MOUSEEVENTF_ABSOLUTE = 0x8000;
+		#region Declarations
 
 		private static bool steam;
 		private static int rodType;
@@ -79,10 +40,18 @@ namespace fisher {
 
 			backgroundThread.WorkerReportsProgress = true;
 			backgroundThread.WorkerSupportsCancellation = true;
+			backgroundThreadGetTimes.WorkerReportsProgress = true;
+			backgroundThreadGetTimes.WorkerSupportsCancellation = true;
 
 			this.Size = new Size(375, 350);
 
-			rodTimerDebugToolTip.SetToolTip(rodTimerDebug, "Use this to adjust fishing timer to get a better catch result.\nAdd/subtract milliseconds (you shouldn't have to change more than 10 milliseconds)\ndepending on if you are stopping before the max value or going past the max.");
+			rodTimerDebugToolTip.SetToolTip(rodTimerDebug, "Use this to adjust fishing timer to get a better catch result." +
+				"\nAdd/subtract milliseconds (you shouldn't have to change more than 10 milliseconds)" +
+				"\ndepending on if you are stopping before the max value or going past the max.");
+			getTimesDedubToolTip.SetToolTip(getTimesBtn, "This function will automatically calculate the rod timer.\n" +
+				"Press the button and wait for the program to time the cast bar going from max value to max value.\n" +
+				"This will calculate five passes of the cast bar maximizing and return an average.\n" +
+				"You can use this average as a solid rod timer to get a near 100% max cast.");
 
 			kongButton.CheckedChanged += new EventHandler(platform_CheckedChanged);
 			steamButton.CheckedChanged += new EventHandler(platform_CheckedChanged);
@@ -92,6 +61,7 @@ namespace fisher {
 			spinningRod.CheckedChanged += new EventHandler(rodType_CheckedChanged);
 			flyRod.CheckedChanged += new EventHandler(rodType_CheckedChanged);
 			legRod.CheckedChanged += new EventHandler(rodType_CheckedChanged);
+
 			castCatchLocationLbl.Text = "Cast/Catch Location:\nPress start button when on fishing start screen";
 
 			rodChoiceGroupBox.Enabled = false;
@@ -99,7 +69,8 @@ namespace fisher {
 			findLocationBtn.Enabled = false;
 			autoBtn.Enabled = false;
 			cancelAutoModeBtn.Enabled = false;
-			
+			getTimesBtn.Enabled = false;
+
 
 		}
 		/// <summary>
@@ -121,7 +92,7 @@ namespace fisher {
 		/// This determines which radio button was clicked.
 		/// Each rod has a different timing.
 		/// The timing is the time it takes for the casting bar to go from its max value, down to its lowest point and back up to its max value.
-		/// I use this method of fishing as it has netted better results then clicking cast as soon as the program detects the casting bar at its max value.
+		/// I use this method of fishing as it has netted better results over clicking cast as soon as the program detects the casting bar at its max value.
 		/// </summary>
 		private void rodType_CheckedChanged(object sender, EventArgs e) {
 			RadioButton radioButton = sender as RadioButton;
@@ -143,14 +114,14 @@ namespace fisher {
 					rodType = 1460;
 			} else if (flyRod.Checked) {
 				if (steam)
-					rodType = 1550;
+					rodType = 1520;
 				else
-					rodType = 1560;
+					rodType = 1525;
 			} else if (legRod.Checked) {
 				if (steam)
-					rodType = 1650;
+					rodType = 1580;
 				else
-					rodType = 1660;
+					rodType = 1585;
 			}
 			rodTimerDebug.Value = rodType;
 			helper = new MethodHelper(steam, rodType);
@@ -185,13 +156,15 @@ namespace fisher {
 			castCatchLocationLbl.Text = "Cast/Catch Location:\n" + locationStartButton.ToString();
 			autoBtn.Enabled = true;
 			cancelAutoModeBtn.Enabled = true;
+			getTimesBtn.Enabled = true;
 		}
 
 		private void getTimesBtn_Click(object sender, EventArgs e) {
 			getTimesBtn.Enabled = false;
-			helper.getTimesMessageBox(locationStartButton);
+			backgroundThreadGetTimes.RunWorkerAsync();
 			getTimesBtn.Enabled = true;
 		}
+
 
 
 		private void autoBtn_Click(object sender, EventArgs e) {
@@ -258,6 +231,7 @@ namespace fisher {
 				}
 			}
 			printMessage(baitUsed, baitToUse, " bait used.\nFinished.");
+			backgroundThread.CancelAsync();
 		}
 
 
@@ -278,9 +252,8 @@ namespace fisher {
 		private void debugOptions_CheckedChanged(object sender, EventArgs e) {
 			if (debugOptions.Checked) {
 				this.Size = new Size(500, 350);
-				
-			}
-			else {
+
+			} else {
 				this.Size = new Size(375, 350);
 			}
 		}
@@ -289,6 +262,12 @@ namespace fisher {
 			rodType = (int)rodTimerDebug.Value;
 			//initiliaze helper again to reflect the rodtype change.
 			helper = new MethodHelper(steam, rodType);
+		}
+
+		private void backgroundThreadGetTimes_DoWork(object sender, DoWorkEventArgs e) {
+			BackgroundWorker worker = sender as BackgroundWorker;
+			Invoke(new Action(() => helper.getTimesMessageBox(locationStartButton)));
+			backgroundThreadGetTimes.CancelAsync();
 		}
 	}
 }

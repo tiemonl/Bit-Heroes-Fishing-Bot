@@ -166,7 +166,7 @@ namespace fisher {
 			bool blue = true;
 			int x = location.X;
 			int y = location.Y;
-			while (times.Count < 10) {
+			while (times.Count < 5) {
 				var c = GetPixelColor(x, y);
 				if (c.R == color.R && c.G == color.G && c.B == color.B) {
 					blue = true;
@@ -183,6 +183,7 @@ namespace fisher {
 					}
 				}
 			}
+			SendKeys.Send("{ESC}");
 			if (steam) {
 				stringBuilder.Append("Platform: Steam\n");
 			} else
@@ -197,14 +198,15 @@ namespace fisher {
 			}
 			sum = sum / times.Count();
 			stringBuilder.Append("average: " + sum);
-			rodType = (int)sum;
 			MessageBox.Show(stringBuilder.ToString());
-
 		}
 
 		public void getTimesMessageBox(Point locationStartButton) {
 			Color fullRangeCastColor = Color.FromArgb(026, 118, 241);
 			Point rangeAreaPosition = new Point(locationStartButton.X, locationStartButton.Y - 75);
+			if (checkIfUserOnStartScreen(locationStartButton)) {
+				SendKeys.Send("%{Tab}");
+			}
 			Thread.Sleep(100);
 			getTimes(rangeAreaPosition, fullRangeCastColor);
 			Thread.Sleep(500);
@@ -214,14 +216,20 @@ namespace fisher {
 		//------------------------------------------Auto clicking helpers------------------------------------------//
 		//---------------------------------------------------------------------------------------------------------//
 		public void startCast(Point locationStartButton) {
-			if (GetPixelColor(locationStartButton.X, locationStartButton.Y).Equals(Color.FromArgb(155, 208, 30))) {
-				Cursor.Position = locationStartButton;
-				LeftClick(locationStartButton);
-			}
+			checkIfUserOnStartScreen(locationStartButton);
 			Color fullRangeCastColor = Color.FromArgb(026, 118, 241);
 			Point rangeAreaPosition = new Point(locationStartButton.X, locationStartButton.Y - 75);
 			Thread.Sleep(100);
 			castRod(rangeAreaPosition, fullRangeCastColor);
+		}
+
+		public bool checkIfUserOnStartScreen(Point locationStartButton) {
+			if (GetPixelColor(locationStartButton.X, locationStartButton.Y).Equals(Color.FromArgb(155, 208, 30))) {
+				Cursor.Position = locationStartButton;
+				LeftClick(locationStartButton);
+				return true;
+			}
+			return false;
 		}
 
 		public void castRod(Point location, Color color) {

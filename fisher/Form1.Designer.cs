@@ -52,6 +52,8 @@
 			this.currentRodTimerLblDebug = new System.Windows.Forms.Label();
 			this.rodTimerDebug = new System.Windows.Forms.NumericUpDown();
 			this.rodTimerDebugToolTip = new System.Windows.Forms.ToolTip(this.components);
+			this.backgroundThreadGetTimes = new System.ComponentModel.BackgroundWorker();
+			this.getTimesDedubToolTip = new System.Windows.Forms.ToolTip(this.components);
 			this.rodChoiceGroupBox.SuspendLayout();
 			this.platformGroupBox.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.baitToUseText)).BeginInit();
@@ -303,12 +305,25 @@
 			// 
 			// rodTimerDebugToolTip
 			// 
-			this.rodTimerDebugToolTip.AutomaticDelay = 250;
+			this.rodTimerDebugToolTip.AutomaticDelay = 100;
 			this.rodTimerDebugToolTip.AutoPopDelay = 10000;
-			this.rodTimerDebugToolTip.InitialDelay = 250;
-			this.rodTimerDebugToolTip.ReshowDelay = 50;
+			this.rodTimerDebugToolTip.InitialDelay = 100;
+			this.rodTimerDebugToolTip.ReshowDelay = 20;
 			this.rodTimerDebugToolTip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
 			this.rodTimerDebugToolTip.ToolTipTitle = "Casting Timer Adjustment";
+			// 
+			// backgroundThreadGetTimes
+			// 
+			this.backgroundThreadGetTimes.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundThreadGetTimes_DoWork);
+			// 
+			// getTimesDedubToolTip
+			// 
+			this.getTimesDedubToolTip.AutomaticDelay = 100;
+			this.getTimesDedubToolTip.AutoPopDelay = 10000;
+			this.getTimesDedubToolTip.InitialDelay = 100;
+			this.getTimesDedubToolTip.ReshowDelay = 20;
+			this.getTimesDedubToolTip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+			this.getTimesDedubToolTip.ToolTipTitle = "Get Times Function";
 			// 
 			// Form1
 			// 
@@ -367,6 +382,8 @@
 		private System.Windows.Forms.Label currentRodTimerLblDebug;
 		private System.Windows.Forms.NumericUpDown rodTimerDebug;
 		private System.Windows.Forms.ToolTip rodTimerDebugToolTip;
+		private System.ComponentModel.BackgroundWorker backgroundThreadGetTimes;
+		private System.Windows.Forms.ToolTip getTimesDedubToolTip;
 	}
 }
 
