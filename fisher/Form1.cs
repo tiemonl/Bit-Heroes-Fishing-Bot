@@ -132,7 +132,7 @@ namespace fisher {
 
 		private void CastCatchLocation_Click(object sender, EventArgs e) {
 
-			locationStartButton = helper.FindColor(startButtonGreen);
+			locationStartButton = helper.getScreenLocationPoint(helper.FindColor(startButtonGreen));
 			if (steam) {
 				locationTradeFishButton = new Point(locationStartButton.X, locationStartButton.Y - 40);
 				locationCloseShellDialogBox = new Point(locationStartButton.X + 270, locationStartButton.Y - 350);
@@ -193,7 +193,7 @@ namespace fisher {
 						printMessage(baitUsed, baitToUse, " bait used.\nWaiting for cast result.");
 						Invoke(new Action(() => Refresh()));
 						//performs cast
-						Color color = helper.GetPixelColor(locationTimerCaughtFish.X, locationTimerCaughtFish.Y);
+						Color color = helper.GetPixelColor(locationTimerCaughtFish);
 						if (color == colorTimerCaughtFishKong || color == colorTimerCaughtFishSteam) {
 							printMessage(baitUsed, baitToUse, " bait used.\nPerforming catch.");
 							Invoke(new Action(() => Refresh()));
@@ -201,7 +201,7 @@ namespace fisher {
 							Thread.Sleep(5000);
 							while (fishGetAway) {
 								//fish caught
-								if (helper.GetPixelColor(locationTradeFishButton.X, locationTradeFishButton.Y) == startButtonGreen) {
+								if (helper.GetPixelColor(locationTradeFishButton) == startButtonGreen) {
 									printMessage(baitUsed, baitToUse, " bait used.\nCaught.");
 									Invoke(new Action(() => Refresh()));
 									//helper.getFishWeight(locationTopLeftWeightScreenshot);
@@ -210,7 +210,7 @@ namespace fisher {
 
 								}
 								//fish got away
-								else if (helper.GetPixelColor(locationCloseItGotAwayButton.X, locationCloseItGotAwayButton.Y) == colorCloseItGotAwayButton) {
+								else if (helper.GetPixelColor(locationCloseItGotAwayButton) == colorCloseItGotAwayButton) {
 									printMessage(baitUsed, baitToUse, " bait used.\nFish got away. Sorry :(");
 									Invoke(new Action(() => Refresh()));
 									helper.fishGotAwaySpace();
@@ -220,7 +220,7 @@ namespace fisher {
 							caughtFish = false;
 						}
 						// caught junk
-						else if (helper.GetPixelColor(locationJunkItem.X, locationJunkItem.Y) == colorJunkItem) {
+						else if (helper.GetPixelColor(locationJunkItem) == colorJunkItem) {
 							printMessage(baitUsed, baitToUse, " bait used.\nCaught junk");
 							Invoke(new Action(() => Refresh()));
 							Invoke(new Action(() => helper.tradeItemThenCloseSpace()));

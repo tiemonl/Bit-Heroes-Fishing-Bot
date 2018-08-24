@@ -61,6 +61,7 @@ namespace fisher {
 		private const int MOUSEEVENTF_MIDDLEUP = 0x0040;
 		private const int MOUSEEVENTF_ABSOLUTE = 0x8000;
 
+		private int screenNumContainingGame;
 		private bool steam;
 		private int rodType;
 
@@ -76,8 +77,9 @@ namespace fisher {
 		//----------------------------------------------------------------------------------------------------------//
 
 
-		public Color GetPixelColor(int x, int y) {
-			//Cursor.Position = new Point(x, y);
+		public Color GetPixelColor(Point location) {
+			int x = location.X;
+			int y = location.Y;
 			IntPtr hdc = NativeMethods.GetDC(IntPtr.Zero);
 			uint pixel = NativeMethods.GetPixel(hdc, x, y);
 			NativeMethods.ReleaseDC(IntPtr.Zero, hdc);
@@ -87,36 +89,43 @@ namespace fisher {
 			return color;
 		}
 
-		public Bitmap GetScreenShot(bool saveScreenshot) {
+		public Dictionary<int, Bitmap> GetScreenShot(bool saveScreenshot) {
 			//Using `SystemInformation.VirtualScreen` rather than `Screen.PrimaryScreen` 
 			//ensures that the program can look at all screens for the start button.
-			int screenLeft = SystemInformation.VirtualScreen.Left;
-			int screenTop = SystemInformation.VirtualScreen.Top;
-			int screenWidth = SystemInformation.VirtualScreen.Width;
-			int screenHeight = SystemInformation.VirtualScreen.Height;
+			Dictionary<int, Bitmap> results = new Dictionary<int, Bitmap>();
+			int i = 0;
+			foreach (var screen in Screen.AllScreens) {
 
-			Bitmap result = new Bitmap(screenWidth, screenHeight);
-			{
-				using (Graphics gfx = Graphics.FromImage(result)) {
-					gfx.CopyFromScreen(screenLeft, screenTop, 0, 0, result.Size);
+				Bitmap result = new Bitmap(screen.Bounds.Width, screen.Bounds.Height);
+				{
+					using (Graphics gfx = Graphics.FromImage(result)) {
+						gfx.CopyFromScreen(screen.Bounds.X, screen.Bounds.Y, 0, 0, result.Size);
+						results.Add(i, result);
+					}
+					if (saveScreenshot) {
+						result.Save(screen.DeviceName.ToString().Trim('\\') + ".png", ImageFormat.Png);
+					}
 				}
-				if (saveScreenshot) {
-					result.Save("screenshot.png", ImageFormat.Png);
-				}
+				++i;
 			}
-			return result;
+			return results;
 		}
 
 		public Point FindColor(Color color) {
 
 			int searchValue = color.ToArgb();
 			Point result = new Point();
-			using (Bitmap bmp = GetScreenShot(false)) {
-				for (int x = 0; x < bmp.Width; x++) {
-					for (int y = 0; y < bmp.Height; y++) {
-						//Cursor.Position = new Point(x, y);
-						if (searchValue.Equals(bmp.GetPixel(x, y).ToArgb()))
-							return result = new Point(x + 30, y);
+			foreach (var screen in GetScreenShot(false)) {
+				using (Bitmap bmp = screen.Value) {
+					for (int x = 0; x < bmp.Width; x++) {
+						for (int y = 0; y < bmp.Height; y++) {
+							//Cursor.Position = new Point(x, y);
+							if (searchValue.Equals(bmp.GetPixel(x, y).ToArgb())) {
+								screenNumContainingGame = screen.Key;
+								//MessageBox.Show("result found in display #" + screen.Key);
+								return result = new Point(x + 30, y);
+							}
+						}
 					}
 				}
 			}
@@ -155,12 +164,6 @@ namespace fisher {
 		//------------------------------------------------Debugging------------------------------------------------//
 		//---------------------------------------------------------------------------------------------------------//
 
-		public Color getcolorlist(int x, int y) {
-			List<Color> colorList = new List<Color>();
-			var color = GetPixelColor(x, y);
-			colorList.Add(color);
-			return color;
-		}
 
 		public void getTimes(Point location, Color color) {
 			StringBuilder stringBuilder = new StringBuilder();
@@ -171,14 +174,14 @@ namespace fisher {
 			int x = location.X;
 			int y = location.Y;
 			while (times.Count < 5) {
-				var c = GetPixelColor(x, y);
+				var c = GetPixelColor(location);
 				if (c.R == color.R && c.G == color.G && c.B == color.B) {
 					blue = true;
 					s.Reset();
 					s.Start();
 					Thread.Sleep(200);
 					while (blue) {
-						Color c1 = GetPixelColor(x, y);
+						Color c1 = GetPixelColor(location);
 						if (c1.R == color.R && c1.G == color.G && c1.B == color.B) {
 							s.Stop();
 							times.Add(s.ElapsedMilliseconds);
@@ -228,8 +231,7 @@ namespace fisher {
 		}
 
 		public bool checkIfUserOnStartScreen(Point locationStartButton) {
-			if (GetPixelColor(locationStartButton.X, locationStartButton.Y).Equals(Color.FromArgb(155, 208, 30))) {
-				
+			if (GetPixelColor(locationStartButton).Equals(Color.FromArgb(155, 208, 30))) {
 				Cursor.Position = locationStartButton;
 				LeftClick(locationStartButton);
 				return true;
@@ -240,12 +242,15 @@ namespace fisher {
 			return false;
 		}
 
+		public Point getScreenLocationPoint(Point location) {
+			Screen screen = Screen.AllScreens[screenNumContainingGame];
+			Point correctedLocation = new Point(screen.Bounds.Location.X + location.X, screen.Bounds.Location.Y + location.Y);
+			return correctedLocation;
+		}
+
 		public void castRod(Point location, Color color) {
-			int x = location.X;
-			int y = location.Y;
-			//int sleeptime = rodType;
 			while (true) {
-				var c = GetPixelColor(x, y);
+				var c = GetPixelColor(location);
 				if (c.R == color.R && c.G == color.G && c.B == color.B) {
 					Thread.Sleep(rodType);
 					SendKeys.Send(" ");
@@ -255,31 +260,13 @@ namespace fisher {
 		}
 		public void catchFish(Point location, Color color) {
 			Cursor.Position = location;
-			int x = location.X;
-			int y = location.Y;
 			while (true) {
-				var c = GetPixelColor(x, y);
+				var c = GetPixelColor(location);
 				if (c.R == color.R && c.G == color.G && c.B == color.B) {
 					SendKeys.Send(" ");
 					return;
 				}
 			}
-		}
-
-		public void fishGotAwayClick(Point location) {
-			Cursor.Position = location;
-			LeftClick(location);
-			Thread.Sleep(1000);
-		}
-
-
-		public void tradeItemThenCloseClick(Point tradeLocation, Point closeLocation) {
-			Cursor.Position = tradeLocation;
-			LeftClick(tradeLocation);
-			Thread.Sleep(500);
-			Cursor.Position = closeLocation;
-			LeftClick(closeLocation);
-			Thread.Sleep(500);
 		}
 
 		public void fishGotAwaySpace() {
