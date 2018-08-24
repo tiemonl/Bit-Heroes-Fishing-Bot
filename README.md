@@ -29,14 +29,14 @@ Pull requests are ***welcomed*** and ***encouraged***!
 - Run the file
 - you will see this screen:
 
-![Fisher GUI](https://i.imgur.com/19MnQxW.png)
+![Fisher GUI](https://i.imgur.com/cajbZ65.png)
 
 ### Setting up the program
 - Select Kongregate or Steam depending on which platform you are fishing in
     - If you are using steam, make sure to set the window size to 800x600
 - Then select the rod you are using to fish
 - Enter the amount of bait you want to go through
-- Calibrate the program to know where to fish by pressing the **Find Cast/Catch Location** button on this screen:
+- Calibrate the program to know where to fish by pressing the **Find Start Location** button on this screen:
 ![Calibration screen](https://i.imgur.com/8mJ0T4o.png)
 
 ### Fishing
@@ -48,9 +48,6 @@ Pull requests are ***welcomed*** and ***encouraged***!
 
 ## Upcoming feature(s)
 - Stop fishing after you catch a certain weight of fish to save bait for another event. i.e. Stop fishing if you catch a fish above 12 kg.
-- Minor bug fixes that few people may experience.
-	- Screen resolution must be set to 100% zoom.
-	- If on web browser, web browser zoom must also be set to 100%.
 
 ## Feature request or bug report
 To request a feature or report a bug, open up an [issue](https://github.com/tiemonl/Bit-Heroes-Fishing-Bot/issues) in GitHub.
@@ -59,4 +56,7 @@ To request a feature or report a bug, open up an [issue](https://github.com/tiem
 - [Issue #2](https://github.com/tiemonl/Bit-Heroes-Fishing-Bot/issues/2) Chrome lags and "de-syncs" program
 	- Current workaround: restart the program. 
  	- I need to work on a fix for this, I know the fix for this I just haven't gotten around to implementing and it requires some logic change and would take more time. I promise I'll get around to it. Sorry for the people it affects.
+- Minor bug fixes that few people may experience.
+	- Screen resolution must be set to 100% zoom.
+	- If on web browser, web browser zoom must also be set to 100%.
  
