@@ -269,5 +269,9 @@ namespace fisher {
 			Invoke(new Action(() => helper.getTimesMessageBox(locationStartButton)));
 			backgroundThreadGetTimes.CancelAsync();
 		}
+
+		private void saveScreenshotButton_Click(object sender, EventArgs e) {
+			helper.GetScreenShot(true);
+		}
 	}
 }

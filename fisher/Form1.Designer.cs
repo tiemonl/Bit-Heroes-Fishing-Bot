@@ -54,6 +54,7 @@
 			this.rodTimerDebugToolTip = new System.Windows.Forms.ToolTip(this.components);
 			this.backgroundThreadGetTimes = new System.ComponentModel.BackgroundWorker();
 			this.getTimesDedubToolTip = new System.Windows.Forms.ToolTip(this.components);
+			this.saveScreenshotButton = new System.Windows.Forms.Button();
 			this.rodChoiceGroupBox.SuspendLayout();
 			this.platformGroupBox.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.baitToUseText)).BeginInit();
@@ -325,11 +326,22 @@
 			this.getTimesDedubToolTip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
 			this.getTimesDedubToolTip.ToolTipTitle = "Get Times Function";
 			// 
+			// saveScreenshotButton
+			// 
+			this.saveScreenshotButton.Location = new System.Drawing.Point(366, 103);
+			this.saveScreenshotButton.Name = "saveScreenshotButton";
+			this.saveScreenshotButton.Size = new System.Drawing.Size(100, 23);
+			this.saveScreenshotButton.TabIndex = 20;
+			this.saveScreenshotButton.Text = "Save screenshot";
+			this.saveScreenshotButton.UseVisualStyleBackColor = true;
+			this.saveScreenshotButton.Click += new System.EventHandler(this.saveScreenshotButton_Click);
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(484, 311);
+			this.Controls.Add(this.saveScreenshotButton);
 			this.Controls.Add(this.rodTimerDebug);
 			this.Controls.Add(this.currentRodTimerLblDebug);
 			this.Controls.Add(this.debugOptions);
@@ -384,6 +396,7 @@
 		private System.Windows.Forms.ToolTip rodTimerDebugToolTip;
 		private System.ComponentModel.BackgroundWorker backgroundThreadGetTimes;
 		private System.Windows.Forms.ToolTip getTimesDedubToolTip;
+		private System.Windows.Forms.Button saveScreenshotButton;
 	}
 }
 

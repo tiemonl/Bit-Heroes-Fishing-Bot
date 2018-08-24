@@ -87,7 +87,7 @@ namespace fisher {
 			return color;
 		}
 
-		private static Bitmap GetScreenShot() {
+		public Bitmap GetScreenShot(bool saveScreenshot) {
 			//Using `SystemInformation.VirtualScreen` rather than `Screen.PrimaryScreen` 
 			//ensures that the program can look at all screens for the start button.
 			int screenLeft = SystemInformation.VirtualScreen.Left;
@@ -95,19 +95,23 @@ namespace fisher {
 			int screenWidth = SystemInformation.VirtualScreen.Width;
 			int screenHeight = SystemInformation.VirtualScreen.Height;
 
-			Bitmap result = new Bitmap(screenWidth, screenHeight, PixelFormat.Format32bppRgb);
+			Bitmap result = new Bitmap(screenWidth, screenHeight);
 			{
 				using (Graphics gfx = Graphics.FromImage(result)) {
-					gfx.CopyFromScreen(screenLeft, screenTop, 0, 0, result.Size, CopyPixelOperation.SourceCopy);
+					gfx.CopyFromScreen(screenLeft, screenTop, 0, 0, result.Size);
+				}
+				if (saveScreenshot) {
+					result.Save("screenshot.png", ImageFormat.Png);
 				}
 			}
 			return result;
 		}
+
 		public Point FindColor(Color color) {
 
 			int searchValue = color.ToArgb();
 			Point result = new Point();
-			using (Bitmap bmp = GetScreenShot()) {
+			using (Bitmap bmp = GetScreenShot(false)) {
 				for (int x = 0; x < bmp.Width; x++) {
 					for (int y = 0; y < bmp.Height; y++) {
 						//Cursor.Position = new Point(x, y);
@@ -225,9 +229,13 @@ namespace fisher {
 
 		public bool checkIfUserOnStartScreen(Point locationStartButton) {
 			if (GetPixelColor(locationStartButton.X, locationStartButton.Y).Equals(Color.FromArgb(155, 208, 30))) {
+				
 				Cursor.Position = locationStartButton;
 				LeftClick(locationStartButton);
 				return true;
+			} else {
+				//used to view position of cursor when using two different screens
+				Cursor.Position = locationStartButton;
 			}
 			return false;
 		}
