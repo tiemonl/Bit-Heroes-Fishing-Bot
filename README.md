@@ -2,6 +2,7 @@
 
 [![GitHub issues](https://img.shields.io/github/issues/tiemonl/Bit-Heroes-Fishing-Bot.svg)](https://github.com/tiemonl/Bit-Heroes-Fishing-Bot/issues)
 [![Github All Releases](https://img.shields.io/github/downloads/tiemonl/Bit-Heroes-Fishing-Bot/total.svg)](https://github.com/tiemonl/Bit-Heroes-Fishing-Bot/releases)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9F2F5CFVSHK8G)
 
 
 Table of Contents
