@@ -56,8 +56,6 @@ Pull requests are ***welcomed*** and ***encouraged***!
 To request a feature or report a bug, open up an [issue](https://github.com/tiemonl/Bit-Heroes-Fishing-Bot/issues) in GitHub.
 
 ## Current bug(s)
-- Application freezing on starting auto mode
-	- Current workaround: refer to [issue #6](https://github.com/tiemonl/Bit-Heroes-Fishing-Bot/issues/6#issuecomment-414486435)
 - [Issue #2](https://github.com/tiemonl/Bit-Heroes-Fishing-Bot/issues/2) Chrome lags and "de-syncs" program
 	- Current workaround: restart the program. 
  	- I need to work on a fix for this, I know the fix for this I just haven't gotten around to implementing and it requires some logic change and would take more time. I promise I'll get around to it. Sorry for the people it affects.
