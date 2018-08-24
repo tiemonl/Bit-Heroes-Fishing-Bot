@@ -122,7 +122,6 @@ namespace fisher {
 							//Cursor.Position = new Point(x, y);
 							if (searchValue.Equals(bmp.GetPixel(x, y).ToArgb())) {
 								screenNumContainingGame = screen.Key;
-								//MessageBox.Show("result found in display #" + screen.Key);
 								return result = new Point(x + 30, y);
 							}
 						}

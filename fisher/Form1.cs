@@ -131,32 +131,36 @@ namespace fisher {
 
 
 		private void CastCatchLocation_Click(object sender, EventArgs e) {
-
-			locationStartButton = helper.getScreenLocationPoint(helper.FindColor(startButtonGreen));
-			if (steam) {
-				locationTradeFishButton = new Point(locationStartButton.X, locationStartButton.Y - 40);
-				locationCloseShellDialogBox = new Point(locationStartButton.X + 270, locationStartButton.Y - 350);
-				locationCloseItGotAwayButton = new Point(locationStartButton.X + 20, locationStartButton.Y - 130);
-				locationTimerCaughtFish = new Point(locationStartButton.X - 200, locationStartButton.Y - 70);
-				locationJunkItem = new Point(locationStartButton.X + 40, locationStartButton.Y - 180);
-				locationTopLeftWeightScreenshot = new Point(locationStartButton.X - 25, locationStartButton.Y - 130);
-				locationBottomRightWeightScreenshot = new Point(locationStartButton.X + 160, locationStartButton.Y - 50);
-				location100Position = new Point(locationStartButton.X + 370, locationStartButton.Y - 81);
+			locationStartButton = helper.FindColor(startButtonGreen);
+			if (locationStartButton == new Point()) {
+				MessageBox.Show("Start button could not be found.\nPlease make sure you are on the fishing start screen.\nIf you believe this may be an error, please submit an issue on github.", "Start button not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			} else {
-				locationTradeFishButton = new Point(locationStartButton.X, locationStartButton.Y - 15);
-				locationCloseShellDialogBox = new Point(locationStartButton.X + 265, locationStartButton.Y - 325);
-				locationCloseItGotAwayButton = new Point(locationStartButton.X + 30, locationStartButton.Y - 100);
-				locationTimerCaughtFish = new Point(locationStartButton.X - 200, locationStartButton.Y - 70);
-				locationJunkItem = new Point(locationStartButton.X + 100, locationStartButton.Y - 155);
-				locationTopLeftWeightScreenshot = new Point(locationStartButton.X - 25, locationStartButton.Y - 130);
-				locationBottomRightWeightScreenshot = new Point(locationStartButton.X + 160, locationStartButton.Y - 50);
-				location100Position = new Point(locationStartButton.X + 373, locationStartButton.Y - 81);
+				locationStartButton = helper.getScreenLocationPoint(locationStartButton);
+				if (steam) {
+					locationTradeFishButton = new Point(locationStartButton.X, locationStartButton.Y - 40);
+					locationCloseShellDialogBox = new Point(locationStartButton.X + 270, locationStartButton.Y - 350);
+					locationCloseItGotAwayButton = new Point(locationStartButton.X + 20, locationStartButton.Y - 130);
+					locationTimerCaughtFish = new Point(locationStartButton.X - 200, locationStartButton.Y - 70);
+					locationJunkItem = new Point(locationStartButton.X + 40, locationStartButton.Y - 180);
+					locationTopLeftWeightScreenshot = new Point(locationStartButton.X - 25, locationStartButton.Y - 130);
+					locationBottomRightWeightScreenshot = new Point(locationStartButton.X + 160, locationStartButton.Y - 50);
+					location100Position = new Point(locationStartButton.X + 370, locationStartButton.Y - 81);
+				} else {
+					locationTradeFishButton = new Point(locationStartButton.X, locationStartButton.Y - 15);
+					locationCloseShellDialogBox = new Point(locationStartButton.X + 265, locationStartButton.Y - 325);
+					locationCloseItGotAwayButton = new Point(locationStartButton.X + 30, locationStartButton.Y - 100);
+					locationTimerCaughtFish = new Point(locationStartButton.X - 200, locationStartButton.Y - 70);
+					locationJunkItem = new Point(locationStartButton.X + 100, locationStartButton.Y - 155);
+					locationTopLeftWeightScreenshot = new Point(locationStartButton.X - 25, locationStartButton.Y - 130);
+					locationBottomRightWeightScreenshot = new Point(locationStartButton.X + 160, locationStartButton.Y - 50);
+					location100Position = new Point(locationStartButton.X + 373, locationStartButton.Y - 81);
 
+				}
+				castCatchLocationLbl.Text = "Cast/Catch Location:\n" + locationStartButton.ToString();
+				autoBtn.Enabled = true;
+				cancelAutoModeBtn.Enabled = true;
+				getTimesBtn.Enabled = true;
 			}
-			castCatchLocationLbl.Text = "Cast/Catch Location:\n" + locationStartButton.ToString();
-			autoBtn.Enabled = true;
-			cancelAutoModeBtn.Enabled = true;
-			getTimesBtn.Enabled = true;
 		}
 
 		private void getTimesBtn_Click(object sender, EventArgs e) {
