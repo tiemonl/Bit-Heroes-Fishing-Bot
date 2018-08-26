@@ -89,6 +89,12 @@ namespace fisher {
 			return color;
 		}
 
+		public bool AreColorsSimilar(Color c1, Color c2, int tolerance) {
+			return Math.Abs(c1.R - c2.R) < tolerance &&
+				   Math.Abs(c1.G - c2.G) < tolerance &&
+				   Math.Abs(c1.B - c2.B) < tolerance;
+		}
+
 		public Dictionary<int, Bitmap> GetScreenShot(bool saveScreenshot) {
 			//Using `SystemInformation.VirtualScreen` rather than `Screen.PrimaryScreen` 
 			//ensures that the program can look at all screens for the start button.

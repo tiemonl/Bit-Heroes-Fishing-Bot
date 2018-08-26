@@ -197,8 +197,10 @@ namespace fisher {
 						printMessage(baitUsed, baitToUse, " bait used.\nWaiting for cast result.");
 						Invoke(new Action(() => Refresh()));
 						//performs cast
+						Invoke(new Action(() => Cursor.Position = locationTimerCaughtFish));
 						Color color = helper.GetPixelColor(locationTimerCaughtFish);
-						if (color == colorTimerCaughtFishKong || color == colorTimerCaughtFishSteam) {
+						//if (color == colorTimerCaughtFishKong || color == colorTimerCaughtFishSteam) {
+						if (helper.AreColorsSimilar(color, colorTimerCaughtFishKong, 20)) { 
 							printMessage(baitUsed, baitToUse, " bait used.\nPerforming catch.");
 							Invoke(new Action(() => Refresh()));
 							Invoke(new Action(() => helper.catchFish(location100Position, oneHundredCatchColor)));
