@@ -274,6 +274,22 @@ namespace fisher {
 			}
 		}
 
+		public void fishGotAwayClick(Point location) {
+			Cursor.Position = location;
+			LeftClick(location);
+			Thread.Sleep(1000);
+		}
+
+
+		public void tradeItemThenCloseClick(Point tradeLocation, Point closeLocation) {
+			Cursor.Position = tradeLocation;
+			LeftClick(tradeLocation);
+			Thread.Sleep(500);
+			Cursor.Position = closeLocation;
+			LeftClick(closeLocation);
+			Thread.Sleep(500);
+		}
+
 		public void fishGotAwaySpace() {
 			SendKeys.SendWait(" ");
 			Thread.Sleep(1000);

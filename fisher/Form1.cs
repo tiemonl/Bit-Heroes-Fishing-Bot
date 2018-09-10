@@ -141,7 +141,7 @@ namespace fisher {
 					locationCloseShellDialogBox = new Point(locationStartButton.X + 270, locationStartButton.Y - 350);
 					locationCloseItGotAwayButton = new Point(locationStartButton.X + 20, locationStartButton.Y - 130);
 					locationTimerCaughtFish = new Point(locationStartButton.X - 200, locationStartButton.Y - 70);
-					locationJunkItem = new Point(locationStartButton.X + 40, locationStartButton.Y - 180);
+					locationJunkItem = new Point(locationStartButton.X + 40, locationStartButton.Y - 182);
 					locationTopLeftWeightScreenshot = new Point(locationStartButton.X - 25, locationStartButton.Y - 130);
 					locationBottomRightWeightScreenshot = new Point(locationStartButton.X + 160, locationStartButton.Y - 50);
 					location100Position = new Point(locationStartButton.X + 370, locationStartButton.Y - 81);
@@ -192,26 +192,38 @@ namespace fisher {
 					++baitUsed;
 					Invoke(new Action(() => Refresh()));
 					Invoke(new Action(() => helper.startCast(locationStartButton)));
-
+					Invoke(new Action(() => Cursor.Position = locationTimerCaughtFish));
 					while (caughtFish) {
+						if (worker.CancellationPending == true) {
+							e.Cancel = true;
+							break;
+						}
 						printMessage(baitUsed, baitToUse, " bait used.\nWaiting for cast result.");
 						Invoke(new Action(() => Refresh()));
 						//performs cast
-						Invoke(new Action(() => Cursor.Position = locationTimerCaughtFish));
 						Color color = helper.GetPixelColor(locationTimerCaughtFish);
 						//if (color == colorTimerCaughtFishKong || color == colorTimerCaughtFishSteam) {
-						if (helper.AreColorsSimilar(color, colorTimerCaughtFishKong, 20)) { 
+						if (helper.AreColorsSimilar(color, colorTimerCaughtFishKong, 20)) {
+							if (worker.CancellationPending == true) {
+								e.Cancel = true;
+								break;
+							}
 							printMessage(baitUsed, baitToUse, " bait used.\nPerforming catch.");
 							Invoke(new Action(() => Refresh()));
 							Invoke(new Action(() => helper.catchFish(location100Position, oneHundredCatchColor)));
 							Thread.Sleep(5000);
 							while (fishGetAway) {
+							
 								//fish caught
+								if (worker.CancellationPending == true) {
+									e.Cancel = true;
+									break;
+								}
 								if (helper.GetPixelColor(locationTradeFishButton) == startButtonGreen) {
 									printMessage(baitUsed, baitToUse, " bait used.\nCaught.");
 									Invoke(new Action(() => Refresh()));
 									//helper.getFishWeight(locationTopLeftWeightScreenshot);
-									Invoke(new Action(() => helper.tradeItemThenCloseSpace()));
+									Invoke(new Action(() => helper.tradeItemThenCloseClick(locationTradeFishButton, locationCloseShellDialogBox)));
 									fishGetAway = false;
 
 								}
@@ -219,7 +231,7 @@ namespace fisher {
 								else if (helper.GetPixelColor(locationCloseItGotAwayButton) == colorCloseItGotAwayButton) {
 									printMessage(baitUsed, baitToUse, " bait used.\nFish got away. Sorry :(");
 									Invoke(new Action(() => Refresh()));
-									helper.fishGotAwaySpace();
+									helper.fishGotAwayClick(locationCloseItGotAwayButton);
 									fishGetAway = false;
 								}
 							}
@@ -229,7 +241,7 @@ namespace fisher {
 						else if (helper.GetPixelColor(locationJunkItem) == colorJunkItem) {
 							printMessage(baitUsed, baitToUse, " bait used.\nCaught junk");
 							Invoke(new Action(() => Refresh()));
-							Invoke(new Action(() => helper.tradeItemThenCloseSpace()));
+							Invoke(new Action(() => helper.tradeItemThenCloseClick(locationTradeFishButton, locationCloseShellDialogBox)));
 							caughtFish = false;
 						}
 					}
@@ -243,10 +255,7 @@ namespace fisher {
 
 
 		private void cancelAutoModeBtn_Click(object sender, EventArgs e) {
-			if (backgroundThread.WorkerSupportsCancellation == true) {
-				// Cancel the asynchronous operation.
-				backgroundThread.CancelAsync();
-			}
+			backgroundThread.CancelAsync();
 		}
 
 		private void printMessage(int baitUsed, int baitToUse, string msg) {
