@@ -9,6 +9,7 @@ Table of Contents
 =================
 * [Introduction](#introduction)
 * [How to use](#how-to-use)
+    * [First Steps](#getting-started-with-the-program)
 	* [Getting started with the program](#getting-started-with-the-program)
 	* [Setting up the program](#setting-up-the-program)
 	* [Fishing](#fishing)
@@ -24,6 +25,7 @@ This program allows you to automatically fish for a set amount of bait. Just pic
 Pull requests are ***welcomed*** and ***encouraged***!
 
 ## How to use
+### First steps
 ### Getting started with the program
 - Download the .exe from the [releases](https://github.com/tiemonl/Bit-Heroes-Fishing-Bot/releases) tab in GitHub.
 - Run the file
@@ -60,3 +62,6 @@ To request a feature or report a bug, open up an [issue](https://github.com/tiem
 	- Screen resolution must be set to 100% zoom.
 	- If on web browser, web browser zoom must also be set to 100%.
  
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTQ0Mjg2Nzk5M119
+-->
