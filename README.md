@@ -9,7 +9,7 @@ Table of Contents
 =================
 * [Introduction](#introduction)
 * [How to use](#how-to-use)
-    * [First Steps](#getting-started-with-the-program)
+    * [First Steps](#first-steps)
 	* [Getting started with the program](#getting-started-with-the-program)
 	* [Setting up the program](#setting-up-the-program)
 	* [Fishing](#fishing)
@@ -26,6 +26,8 @@ Pull requests are ***welcomed*** and ***encouraged***!
 
 ## How to use
 ### First steps
+- To make sure this program runs, a few setting settings need to be checked.
+	- Windows zoom settings need to be t 
 ### Getting started with the program
 - Download the .exe from the [releases](https://github.com/tiemonl/Bit-Heroes-Fishing-Bot/releases) tab in GitHub.
 - Run the file
@@ -63,5 +65,5 @@ To request a feature or report a bug, open up an [issue](https://github.com/tiem
 	- If on web browser, web browser zoom must also be set to 100%.
  
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQ0Mjg2Nzk5M119
+eyJoaXN0b3J5IjpbMTUyMDEwMTM4M119
 -->
