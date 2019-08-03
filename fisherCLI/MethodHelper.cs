@@ -17,9 +17,8 @@ namespace fisherCLI {
 		/// </summary>
 		/// <param name="usingSteam">Determines whether the user is using Steam or Kongregate for the program.</param>
 		/// <param name="rod">Determines which fishing rod the user is using to fish</param>
-		public MethodHelper(bool usingSteam, int rod) {
+		public MethodHelper(bool usingSteam) {
 			steam = usingSteam;
-			rodType = rod;
 		}
 
 		public partial class NativeMethods {
@@ -63,7 +62,6 @@ namespace fisherCLI {
 
 		private int screenNumContainingGame;
 		private bool steam;
-		private int rodType;
 	
 
 		public static void LeftClick(Point point) {
@@ -211,7 +209,6 @@ namespace fisherCLI {
 			while (true) {
 				var c = GetPixelColor(location);
 				if (c.R == color.R && c.G == color.G && c.B == color.B) {
-					Thread.Sleep(rodType);
 					SendKeys.Send(" ");
 					return;
 				}
