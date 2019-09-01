@@ -432,4 +432,4 @@ fabric.properties
 hs_err_pid*
 
 .DS_STORE
-*/META-INF/*
+**/META-INF/*
