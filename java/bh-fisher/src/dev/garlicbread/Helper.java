@@ -1,16 +1,28 @@
 package dev.garlicbread;
 
-import jdk.internal.util.xml.impl.Input;
-
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 public class Helper {
     Robot robot;
+    private Color fullRangeCastColor;
+    private Color startButtonGreen;
 
-    public Helper() throws AWTException {
-        robot = new Robot();
+    public Helper(Robot r) throws AWTException {
+        robot = r;
+        setUpColors();
+    }
+
+    private void setUpColors() {
+        String OS = System.getProperty("os.name").toLowerCase();
+        if (OS.indexOf("win") >= 0) {
+            fullRangeCastColor = new Color(26, 118, 241);
+            startButtonGreen = new Color(155, 208, 30);
+        } else {
+            fullRangeCastColor = new Color(23, 92, 237);
+            startButtonGreen = new Color(139, 202, 24);
+        }
     }
 
     public Color GetPixelColor(Point p) {
@@ -27,27 +39,26 @@ public class Helper {
         robot.mouseMove(p.x, p.y);
     }
 
-    public void mouseClick(){
+    public void mouseClick() {
         int mask = InputEvent.BUTTON1_DOWN_MASK;
         robot.mousePress(mask);
         robot.mouseRelease(mask);
     }
 
-    public void sendKey(int key){
+    public void sendKey(int key) {
         robot.keyPress(key);
         robot.keyRelease(key);
     }
 
     public void startCast(Point p) throws InterruptedException {
         checkIfUserIsOnStartScreen(p);
-        Color fullRangeCastColor = new Color(23, 92, 237);
         Point rangeAreaPosition = new Point(p.x, p.y - 75);
         Thread.sleep(100);
         castRod(rangeAreaPosition, fullRangeCastColor);
     }
 
     public boolean checkIfUserIsOnStartScreen(Point p) {
-        if (GetPixelColor(p).equals(new Color(139, 202, 24))) {
+        if (GetPixelColor(p).equals(startButtonGreen)) {
             moveCursor(p);
             mouseClick();
             return true;

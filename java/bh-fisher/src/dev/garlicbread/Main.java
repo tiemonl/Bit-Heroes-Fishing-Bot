@@ -9,7 +9,7 @@ public class Main {
 
     private static boolean steam;
     private static int rodType;
-    private static int bait = 10;
+    private static int bait;
     private static Point locationStartButton;
     private static Point locationCloseShellDialogBox;
     private static Point locationTradeFishButton;
@@ -20,25 +20,48 @@ public class Main {
     private static Point locationBottomRightWeightScreenshot;
     private static Point location100Position;
 
-    private static Color startButtonGreen = new Color(139, 202, 24);
-    private static Color castButtonBlue = new Color(31, 153, 197);
-    private static Color colorCloseItGotAwayButton = new Color(31, 153, 197);
-    private static Color colorTimerCaughtFishKong = new Color(56, 255, 56);
-    private static Color colorTimerCaughtFishSteam = new Color(59, 255, 59);
-    private static Color colorJunkItem = new Color(255, 255, 255);
-    private static Color oneHundredCatchColor = new Color(71, 255, 3);
+    private static String OS = System.getProperty("os.name").toLowerCase();
+
+    private static Color startButtonGreen;
+    private static Color castButtonBlue;
+    private static Color colorCloseItGotAwayButton;
+    private static Color colorTimerCaughtFishKong;
+    private static Color colorTimerCaughtFishSteam;
+    private static Color colorJunkItem;
+    private static Color oneHundredCatchColor;
 
     private static Robot r;
 
     public static void main(String[] args) throws AWTException, InterruptedException {
+        bait = Integer.parseInt(args[0]);
         r = new Robot();
-        helper = new Helper();
+        helper = new Helper(r);
         Dimension screenDim = Toolkit.getDefaultToolkit().getScreenSize();
-
+        setUpColors();
         BufferedImage screenCapture = r.createScreenCapture(new Rectangle(screenDim));
-        setLocations(screenCapture);
+        setStartLocation(screenCapture);
         startFishing();
 
+    }
+
+    private static void setUpColors() {
+        if (OS.indexOf("win") >= 0){
+            startButtonGreen = new Color(155, 208, 30);
+            castButtonBlue = new Color(030, 170, 208);
+            colorCloseItGotAwayButton = new Color(030, 170, 208);
+            colorTimerCaughtFishKong = new Color(56, 255, 56);
+            colorTimerCaughtFishSteam = new Color(59, 255, 59);
+            colorJunkItem = new Color(255, 255, 255);
+            oneHundredCatchColor = new Color(77, 254, 0);
+        } else {
+            startButtonGreen = new Color(139, 202, 24);
+            castButtonBlue = new Color(31, 153, 197);
+            colorCloseItGotAwayButton = new Color(31, 153, 197);
+            colorTimerCaughtFishKong = new Color(56, 255, 56);
+            colorTimerCaughtFishSteam = new Color(59, 255, 59);
+            colorJunkItem = new Color(255, 255, 255);
+            oneHundredCatchColor = new Color(71, 255, 3);
+        }
     }
 
     public static Point FindColor(Color c, BufferedImage screen) {
@@ -54,12 +77,20 @@ public class Main {
                 }
             }
         System.out.println("did not find start button");
-        System.exit(1);
         return null;
     }
 
-    public static void setLocations(BufferedImage screen) {
-        locationStartButton = FindColor(startButtonGreen, screen);
+    public static void setStartLocation(BufferedImage screen) {
+        Point location = FindColor(startButtonGreen, screen);
+        if (location == null) {
+            System.exit(1);
+        } else {
+            locationStartButton = location;
+            setLocations();
+        }
+    }
+
+    public static void setLocations() {
         locationTradeFishButton = new Point(locationStartButton.x, locationStartButton.y - 15);
         locationCloseShellDialogBox = new Point(locationStartButton.x + 265, locationStartButton.y - 325);
         locationCloseItGotAwayButton = new Point(locationStartButton.x + 30, locationStartButton.y - 100);
