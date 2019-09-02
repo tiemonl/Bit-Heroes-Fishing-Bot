@@ -12,7 +12,10 @@ Table of Contents
 =================
 * [Introduction](#introduction)
 * [How to use](#how-to-use)
-  * [Windows](#windows)
+    * [First Steps](#first-steps)
+	* [Getting started with the program](#getting-started-with-the-program)
+	* [Setting up the program](#setting-up-the-program)
+	* [Fishing](#fishing)
 * [Upcoming feature(s)](#upcoming-features)
 * [Feature request or bug report](#feature-request-or-bug-report)
 * [Donation](#Donation)
@@ -25,15 +28,34 @@ This program allows you to automatically fish for a set amount of bait. Just pic
 Pull requests are ***welcomed*** and ***encouraged***!
 
 ## How to use
-### Windows
-The windows program features a GUI and more setup available. It is compatible with both Steam and Kongregate. For more information please view the [README in the csharp section.](csharp/README.md)
+### First steps
+- To make sure this program runs correctly, a few setting settings need to be checked.
+	- Windows zoom settings need to be set to 100% and you need to be at default resolution as such in Display Settings for Windows 10:
+![Windows zoom settings](https://i.imgur.com/VuAGRrh.png)
+	- If you are using **Steam**: Please make sure the game is set to 800x600 as such:
+![Steam zoom setting](https://i.imgur.com/MggpKaq.png)
+	- If you are using **Kongregate**: Please make sure the browser you are using is on 100% page zoom. For example, chrome:
+![Browser zoom setting](https://i.imgur.com/AyrINZf.png)
+### Getting started with the program
+- Download the .exe from the [releases](https://github.com/tiemonl/Bit-Heroes-Fishing-Bot/releases) tab in GitHub.
+- Run the file
+- you will see this screen:
 
-### Mac/Linux
-This version relies on Java. Please make sure you have java downloaded on your machine. It is a CLI only tool currently. Download [bh-fisher.jar]((https://github.com/tiemonl/Bit-Heroes-Fishing-Bot/releases) from the releases tab.
+![Fisher GUI](https://i.imgur.com/cajbZ65.png)
 
-To use it please make sure you are on the fishing start screen where your rod and bait are displayed. Then open up a terminal and `cd` to the directory in which bh-fisher.jar resides. To run the program use the command `java -jar bh-fisher.jar <bait>` where <bait> is replaced by the amount of bait you would like to use up.
+### Setting up the program
+- Select Kongregate or Steam depending on which platform you are fishing in
+    - If you are using steam, make sure to set the window size to 800x600
+- Then select the rod you are using to fish
+- Enter the amount of bait you want to go through
+- Calibrate the program to know where to fish by pressing the **Find Start Location** button on this screen:
+![Calibration screen](https://i.imgur.com/8mJ0T4o.png)
 
-This version is still in beta. If you come across any issues, please submit an [issue](https://github.com/tiemonl/Bit-Heroes-Fishing-Bot/issues) and be as detailed as possible. I will add another README in the java directory with more details on how to run the program.
+### Fishing
+- Once you've calibrated the program, you should have a coordinate to the right of the button resembling this: {X=100, Y=300}
+    - If you have multiple monitors, make sure Bit Heroes is in the primary monitor. If Bit Heroes is in the second monitor, the program will not work and your coordinates will be {X=0, Y=0}. This indicates it did not calibrate correctly.
+- Press Auto mode and let the program fish for you.
+    - If you need to cancel Auto Mode for whatever reason, press cancel and the program will finish catching the current fish, before stopping.
 
 
 ## Upcoming feature(s)
@@ -48,3 +70,7 @@ If this program as helped you save time fishing, please consider donating:
 https://brianmacdonald.github.io/Ethonate/svg/eth-donate-blue.svg)](
 https://brianmacdonald.github.io/Ethonate/address#0xaD3c539d7bb5e3ce993ca87DEA851B308326511a)
 [![Donate Paypal](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9F2F5CFVSHK8G)
+ 
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTIxNTU4NDM0NywxNTIwMTAxMzgzXX0=
+-->
