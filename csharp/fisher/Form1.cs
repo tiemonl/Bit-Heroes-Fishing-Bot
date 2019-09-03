@@ -11,7 +11,6 @@ namespace fisher {
 		#region Declarations
 
 		private static bool steam;
-		private static int rodType;
 		private static Point locationStartButton;
 		private static Point locationCloseShellDialogBox;
 		private static Point locationTradeFishButton;
@@ -33,7 +32,6 @@ namespace fisher {
 		MethodHelper helper;
 		#endregion
 
-
 		public Form1() {
 
 			InitializeComponent();
@@ -43,34 +41,18 @@ namespace fisher {
 			backgroundThreadGetTimes.WorkerReportsProgress = true;
 			backgroundThreadGetTimes.WorkerSupportsCancellation = true;
 
-			this.Size = new Size(375, 350);
-
-			rodTimerDebugToolTip.SetToolTip(rodTimerDebug, "Use this to adjust fishing timer to get a better catch result." +
-				"\nAdd/subtract milliseconds (you shouldn't have to change more than 10 milliseconds)" +
-				"\ndepending on if you are stopping before the max value or going past the max.");
-			getTimesDedubToolTip.SetToolTip(getTimesBtn, "This function will automatically calculate the rod timer.\n" +
-				"Press the button and wait for the program to time the cast bar going from max value to max value.\n" +
-				"This will calculate five passes of the cast bar maximizing and return an average.\n" +
-				"You can use this average as a solid rod timer to get a near 100% max cast.");
-
 			kongButton.CheckedChanged += new EventHandler(platform_CheckedChanged);
+			kartridgeButton.CheckedChanged += new EventHandler(platform_CheckedChanged);
 			steamButton.CheckedChanged += new EventHandler(platform_CheckedChanged);
-
-			woodFishingRod.CheckedChanged += new EventHandler(rodType_CheckedChanged);
-			trollingRod.CheckedChanged += new EventHandler(rodType_CheckedChanged);
-			spinningRod.CheckedChanged += new EventHandler(rodType_CheckedChanged);
-			flyRod.CheckedChanged += new EventHandler(rodType_CheckedChanged);
-			legRod.CheckedChanged += new EventHandler(rodType_CheckedChanged);
 
 			castCatchLocationLbl.Text = "Cast/Catch Location:\nPress start button when on fishing start screen";
 
-			rodChoiceGroupBox.Enabled = false;
+			helper = new MethodHelper(steam);
+
 			baitToUseText.Enabled = false;
 			findLocationBtn.Enabled = false;
 			autoBtn.Enabled = false;
 			cancelAutoModeBtn.Enabled = false;
-			getTimesBtn.Enabled = false;
-
 
 		}
 		/// <summary>
@@ -79,56 +61,14 @@ namespace fisher {
 		/// </summary>
 		private void platform_CheckedChanged(object sender, EventArgs e) {
 			RadioButton radioButton = sender as RadioButton;
-
-			if (kongButton.Checked) {
+			if (kongButton.Checked || kartridgeButton.Checked) {
 				steam = false;
 			} else if (steamButton.Checked) {
 				steam = true;
 			}
-			rodChoiceGroupBox.Enabled = true;
-		}
-
-		/// <summary>
-		/// This determines which radio button was clicked.
-		/// Each rod has a different timing.
-		/// The timing is the time it takes for the casting bar to go from its max value, down to its lowest point and back up to its max value.
-		/// I use this method of fishing as it has netted better results over clicking cast as soon as the program detects the casting bar at its max value.
-		/// </summary>
-		private void rodType_CheckedChanged(object sender, EventArgs e) {
-			RadioButton radioButton = sender as RadioButton;
-
-			if (woodFishingRod.Checked) {
-				if (steam)
-					rodType = 1250;
-				else
-					rodType = 1260;
-			} else if (trollingRod.Checked) {
-				if (steam)
-					rodType = 1350;
-				else
-					rodType = 1360;
-			} else if (spinningRod.Checked) {
-				if (steam)
-					rodType = 1450;
-				else
-					rodType = 1460;
-			} else if (flyRod.Checked) {
-				if (steam)
-					rodType = 1520;
-				else
-					rodType = 1525;
-			} else if (legRod.Checked) {
-				if (steam)
-					rodType = 1580;
-				else
-					rodType = 1585;
-			}
-			rodTimerDebug.Value = rodType;
-			helper = new MethodHelper(steam, rodType);
 			baitToUseText.Enabled = true;
 			findLocationBtn.Enabled = true;
 		}
-
 
 		private void CastCatchLocation_Click(object sender, EventArgs e) {
 			locationStartButton = helper.FindColor(startButtonGreen);
@@ -154,22 +94,12 @@ namespace fisher {
 					locationTopLeftWeightScreenshot = new Point(locationStartButton.X - 25, locationStartButton.Y - 130);
 					locationBottomRightWeightScreenshot = new Point(locationStartButton.X + 160, locationStartButton.Y - 50);
 					location100Position = new Point(locationStartButton.X + 373, locationStartButton.Y - 81);
-
 				}
 				castCatchLocationLbl.Text = "Cast/Catch Location:\n" + locationStartButton.ToString();
 				autoBtn.Enabled = true;
 				cancelAutoModeBtn.Enabled = true;
-				getTimesBtn.Enabled = true;
 			}
 		}
-
-		private void getTimesBtn_Click(object sender, EventArgs e) {
-			getTimesBtn.Enabled = false;
-			backgroundThreadGetTimes.RunWorkerAsync();
-			getTimesBtn.Enabled = true;
-		}
-
-
 
 		private void autoBtn_Click(object sender, EventArgs e) {
 			backgroundThread.RunWorkerAsync();
@@ -188,7 +118,7 @@ namespace fisher {
 					//Performs cast
 					bool caughtFish = true;
 					bool fishGetAway = true;
-					printMessage(baitUsed, baitToUse, " bait used.\nPerforming cast.\nTimer: " + rodType);
+					printMessage(baitUsed, baitToUse, " bait used.\nPerforming cast.");
 					++baitUsed;
 					Invoke(new Action(() => Refresh()));
 					Invoke(new Action(() => helper.startCast(locationStartButton)));
@@ -213,7 +143,7 @@ namespace fisher {
 							Invoke(new Action(() => helper.catchFish(location100Position, oneHundredCatchColor)));
 							Thread.Sleep(5000);
 							while (fishGetAway) {
-							
+
 								//fish caught
 								if (worker.CancellationPending == true) {
 									e.Cancel = true;
@@ -252,8 +182,6 @@ namespace fisher {
 			backgroundThread.CancelAsync();
 		}
 
-
-
 		private void cancelAutoModeBtn_Click(object sender, EventArgs e) {
 			backgroundThread.CancelAsync();
 		}
@@ -262,31 +190,6 @@ namespace fisher {
 			debugAutoStepLbl.Invoke((MethodInvoker)delegate {
 				debugAutoStepLbl.Text = baitUsed + "/" + baitToUse + msg;
 			});
-		}
-
-		private void debugOptions_CheckedChanged(object sender, EventArgs e) {
-			if (debugOptions.Checked) {
-				this.Size = new Size(500, 350);
-
-			} else {
-				this.Size = new Size(375, 350);
-			}
-		}
-
-		private void rodTimerDebug_ValueChanged(object sender, EventArgs e) {
-			rodType = (int)rodTimerDebug.Value;
-			//initiliaze helper again to reflect the rodtype change.
-			helper = new MethodHelper(steam, rodType);
-		}
-
-		private void backgroundThreadGetTimes_DoWork(object sender, DoWorkEventArgs e) {
-			BackgroundWorker worker = sender as BackgroundWorker;
-			Invoke(new Action(() => helper.getTimesMessageBox(locationStartButton)));
-			backgroundThreadGetTimes.CancelAsync();
-		}
-
-		private void saveScreenshotButton_Click(object sender, EventArgs e) {
-			helper.GetScreenShot(true);
 		}
 	}
 }
