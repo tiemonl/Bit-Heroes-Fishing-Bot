@@ -358,7 +358,7 @@
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "Form1";
-			this.Text = "Fisher v1.2.4";
+			this.Text = "Fisher v1.3.0";
 			this.rodChoiceGroupBox.ResumeLayout(false);
 			this.rodChoiceGroupBox.PerformLayout();
 			this.platformGroupBox.ResumeLayout(false);
