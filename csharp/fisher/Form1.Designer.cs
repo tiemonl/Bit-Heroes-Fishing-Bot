@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
 			this.findLocationBtn = new System.Windows.Forms.Button();
 			this.castCatchLocationLbl = new System.Windows.Forms.Label();
@@ -42,9 +41,7 @@
 			this.baitToUseText = new System.Windows.Forms.NumericUpDown();
 			this.backgroundThread = new System.ComponentModel.BackgroundWorker();
 			this.cancelAutoModeBtn = new System.Windows.Forms.Button();
-			this.rodTimerDebugToolTip = new System.Windows.Forms.ToolTip(this.components);
 			this.backgroundThreadGetTimes = new System.ComponentModel.BackgroundWorker();
-			this.getTimesDedubToolTip = new System.Windows.Forms.ToolTip(this.components);
 			this.platformGroupBox.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.baitToUseText)).BeginInit();
 			this.SuspendLayout();
@@ -217,9 +214,7 @@
         private System.Windows.Forms.NumericUpDown baitToUseText;
 		private System.ComponentModel.BackgroundWorker backgroundThread;
 		private System.Windows.Forms.Button cancelAutoModeBtn;
-		private System.Windows.Forms.ToolTip rodTimerDebugToolTip;
 		private System.ComponentModel.BackgroundWorker backgroundThreadGetTimes;
-		private System.Windows.Forms.ToolTip getTimesDedubToolTip;
 		private System.Windows.Forms.RadioButton kartridgeButton;
 	}
 }
