@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fisher", "fisher\fisher.csproj", "{93668F5E-8746-4070-AE80-19D2609EDE78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fisherCLI", "fisherCLI\fisherCLI.csproj", "{76C7907B-3778-443F-9926-E099C04110E7}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{93668F5E-8746-4070-AE80-19D2609EDE78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93668F5E-8746-4070-AE80-19D2609EDE78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93668F5E-8746-4070-AE80-19D2609EDE78}.Release|Any CPU.Build.0 = Release|Any CPU
-		{76C7907B-3778-443F-9926-E099C04110E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{76C7907B-3778-443F-9926-E099C04110E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{76C7907B-3778-443F-9926-E099C04110E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{76C7907B-3778-443F-9926-E099C04110E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
