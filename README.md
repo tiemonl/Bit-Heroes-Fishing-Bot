@@ -13,6 +13,7 @@ Table of Contents
 * [Introduction](#introduction)
 * [How to use](#how-to-use)
   * [Windows](#windows)
+  * [Mac/Linux](#maclinux)
 * [Upcoming feature(s)](#upcoming-features)
 * [Feature request or bug report](#feature-request-or-bug-report)
 * [Donation](#Donation)
@@ -29,7 +30,7 @@ Pull requests are ***welcomed*** and ***encouraged***!
 The windows program features a GUI and more setup available. It is compatible with both Steam and Kongregate. For more information please view the [README in the csharp section.](csharp/README.md)
 
 ### Mac/Linux
-This version relies on Java. Please make sure you have java downloaded on your machine. It is a CLI only tool currently. Download [bh-fisher.jar]((https://github.com/tiemonl/Bit-Heroes-Fishing-Bot/releases) from the releases tab.
+This version relies on Java. Please make sure you have java downloaded on your machine. It is a CLI only tool currently. Download [bh-fisher.jar](https://github.com/tiemonl/Bit-Heroes-Fishing-Bot/releases) from the releases tab.
 
 To use it please make sure you are on the fishing start screen where your rod and bait are displayed. Then open up a terminal and `cd` to the directory in which bh-fisher.jar resides. To run the program use the command `java -jar bh-fisher.jar <bait>` where <bait> is replaced by the amount of bait you would like to use up.
 
