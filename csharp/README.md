@@ -1,4 +1,4 @@
-# Bit Heroes Fishing Bot
+# Bit Heroes Fishing Bot -- Windows
 
 [![GitHub issues](https://img.shields.io/github/issues/tiemonl/Bit-Heroes-Fishing-Bot.svg)](https://github.com/tiemonl/Bit-Heroes-Fishing-Bot/issues)
 [![Github All Releases](https://img.shields.io/github/downloads/tiemonl/Bit-Heroes-Fishing-Bot/total.svg)](https://github.com/tiemonl/Bit-Heroes-Fishing-Bot/releases)
@@ -10,22 +10,13 @@ https://brianmacdonald.github.io/Ethonate/address#0xaD3c539d7bb5e3ce993ca87DEA85
 
 Table of Contents
 =================
-* [Introduction](#introduction)
 * [How to use](#how-to-use)
     * [First Steps](#first-steps)
 	* [Getting started with the program](#getting-started-with-the-program)
 	* [Setting up the program](#setting-up-the-program)
 	* [Fishing](#fishing)
-* [Upcoming feature(s)](#upcoming-features)
 * [Feature request or bug report](#feature-request-or-bug-report)
 * [Donation](#Donation)
-
-
-## Introduction
-
-This program allows you to automatically fish for a set amount of bait. Just pick the amount of bait you want to use and press start and let the bot fish for you. This program is not 100%, however, it will always be better than a human. I do not guarantee a 100% catch rate, but I do guarantee a very high catch rate for very little effort.
-
-Pull requests are ***welcomed*** and ***encouraged***!
 
 ## How to use
 ### First steps
@@ -44,7 +35,7 @@ Pull requests are ***welcomed*** and ***encouraged***!
 ![Fisher GUI](https://i.imgur.com/cajbZ65.png)
 
 ### Setting up the program
-- Select Kongregate or Steam depending on which platform you are fishing in
+- Select Kongregate, Kartridge, or Steam depending on which platform you are fishing in
     - If you are using steam, make sure to set the window size to 800x600
 - Then select the rod you are using to fish
 - Enter the amount of bait you want to go through
@@ -57,10 +48,6 @@ Pull requests are ***welcomed*** and ***encouraged***!
 - Press Auto mode and let the program fish for you.
     - If you need to cancel Auto Mode for whatever reason, press cancel and the program will finish catching the current fish, before stopping.
 
-
-## Upcoming feature(s)
-- Stop fishing after you catch a certain weight of fish to save bait for another event. i.e. Stop fishing if you catch a fish above 12 kg. (currently not working on this project, I may go back to finishing this in the summer when I have more time)
-
 ## Feature request or bug report
 To request a feature or report a bug, open up an [issue](https://github.com/tiemonl/Bit-Heroes-Fishing-Bot/issues) in GitHub.
 
@@ -70,7 +57,3 @@ If this program as helped you save time fishing, please consider donating:
 https://brianmacdonald.github.io/Ethonate/svg/eth-donate-blue.svg)](
 https://brianmacdonald.github.io/Ethonate/address#0xaD3c539d7bb5e3ce993ca87DEA851B308326511a)
 [![Donate Paypal](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9F2F5CFVSHK8G)
- 
-<!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIxNTU4NDM0NywxNTIwMTAxMzgzXX0=
--->

@@ -1,4 +1,4 @@
-# Bit Heroes Fishing Bot
+# Bit Heroes Fishing Bot -- Unix
 
 [![GitHub issues](https://img.shields.io/github/issues/tiemonl/Bit-Heroes-Fishing-Bot.svg)](https://github.com/tiemonl/Bit-Heroes-Fishing-Bot/issues)
 [![Github All Releases](https://img.shields.io/github/downloads/tiemonl/Bit-Heroes-Fishing-Bot/total.svg)](https://github.com/tiemonl/Bit-Heroes-Fishing-Bot/releases)
@@ -10,33 +10,26 @@ https://brianmacdonald.github.io/Ethonate/address#0xaD3c539d7bb5e3ce993ca87DEA85
 
 Table of Contents
 =================
-* [Introduction](#introduction)
 * [How to use](#how-to-use)
-  * [Windows](#windows)
-  * [Mac/Linux](#maclinux)
-* [Upcoming feature(s)](#upcoming-features)
+  * [First Steps](#first-steps)
+  * [Setting up the game](#setting-up-the-game)
+  * [Fishing](#fishing)
 * [Feature request or bug report](#feature-request-or-bug-report)
 * [Donation](#Donation)
 
-
-## Introduction
-
-This program allows you to automatically fish for a set amount of bait. Just pick the amount of bait you want to use and press start and let the bot fish for you. This program is not 100%, however, it will always be better than a human. I do not guarantee a 100% catch rate, but I do guarantee a very high catch rate for very little effort.
-
-Pull requests are ***welcomed*** and ***encouraged***!
-
 ## How to use
-### Windows
-The windows program features a GUI and more setup available. It is compatible with both Steam and Kongregate. For more information please view the [README in the csharp section.](./csharp)
+### First steps
+- To make sure this program runs correctly, a few setting settings need to be checked.
+  - Make sure you have java installed by running `java -version` in the terminal.
+  - Download bh-fisher.jar from the [releases](https://github.com/tiemonl/Bit-Heroes-Fishing-Bot/releases) tab in GitHub.
+  - `cd` to the directory in which the file was downloaded. i.e. `cd ~/Downloads/`
 
-### Mac/Linux
-This version relies on Java. Please make sure you have java downloaded on your machine. It is a CLI only tool currently. Download [bh-fisher.jar](https://github.com/tiemonl/Bit-Heroes-Fishing-Bot/releases) from the releases tab. For more information please view the [README in the java section.](./java)
+### Setting up the game
+- Navigate to the fishing starting screen on your ***primary*** monitor:
+![Calibration screen](https://i.imgur.com/8mJ0T4o.png)
 
-This version is still in beta. If you come across any issues, please submit an [issue](https://github.com/tiemonl/Bit-Heroes-Fishing-Bot/issues) and be as detailed as possible. I will add another README in the java directory with more details on how to run the program.
-
-
-## Upcoming feature(s)
-- None currently
+### Fishing
+- To start fishing use the command `java -jar bh-fisher.jar <bait>` and replace `<bait>` with the amount of bait you wish to use. i.e. `java -jar bh-fisher.jar 120`
 
 ## Feature request or bug report
 To request a feature or report a bug, open up an [issue](https://github.com/tiemonl/Bit-Heroes-Fishing-Bot/issues) in GitHub.
