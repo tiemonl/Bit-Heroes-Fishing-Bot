@@ -73,13 +73,13 @@ public class Main {
 				int screenRGB = screen.getRGB(x, y);
 				Color color = new Color(screenRGB);
 				if (c.equals(color)) {
-					System.out.println("found color!");
+					logger.log(Level.INFO, "Found starting button.");
 					helper.moveCursor(new Point(x - 60, y));
 					helper.mouseClick();
 					return new Point(x + 30, y);
 				}
 			}
-		System.out.println("did not find start button");
+		logger.log(Level.SEVERE, "Start button not found. Exit code 1");
 		return null;
 	}
 
