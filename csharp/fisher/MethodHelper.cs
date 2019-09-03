@@ -16,10 +16,8 @@ namespace fisher {
 		/// Constructor
 		/// </summary>
 		/// <param name="usingSteam">Determines whether the user is using Steam or Kongregate for the program.</param>
-		/// <param name="rod">Determines which fishing rod the user is using to fish</param>
-		public MethodHelper(bool usingSteam, int rod) {
+		public MethodHelper(bool usingSteam) {
 			steam = usingSteam;
-			rodType = rod;
 		}
 
 		public partial class NativeMethods {
@@ -63,7 +61,6 @@ namespace fisher {
 
 		private int screenNumContainingGame;
 		private bool steam;
-		private int rodType;
 
 		FindWeight findWeight = new FindWeight();
 
@@ -257,12 +254,12 @@ namespace fisher {
 			while (true) {
 				var c = GetPixelColor(location);
 				if (c.R == color.R && c.G == color.G && c.B == color.B) {
-					Thread.Sleep(rodType);
 					SendKeys.Send(" ");
 					return;
 				}
 			}
 		}
+
 		public void catchFish(Point location, Color color) {
 			Cursor.Position = location;
 			while (true) {
