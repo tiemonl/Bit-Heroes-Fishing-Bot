@@ -54,6 +54,7 @@ namespace fisher {
 				"You can use this average as a solid rod timer to get a near 100% max cast.");
 
 			kongButton.CheckedChanged += new EventHandler(platform_CheckedChanged);
+			kartridgeButton.CheckedChanged += new EventHandler(platform_CheckedChanged);
 			steamButton.CheckedChanged += new EventHandler(platform_CheckedChanged);
 
 			woodFishingRod.CheckedChanged += new EventHandler(rodType_CheckedChanged);
@@ -80,7 +81,7 @@ namespace fisher {
 		private void platform_CheckedChanged(object sender, EventArgs e) {
 			RadioButton radioButton = sender as RadioButton;
 
-			if (kongButton.Checked) {
+			if (kongButton.Checked || kartridgeButton.Checked) {
 				steam = false;
 			} else if (steamButton.Checked) {
 				steam = true;

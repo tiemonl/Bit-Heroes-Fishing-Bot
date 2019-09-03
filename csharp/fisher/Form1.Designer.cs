@@ -55,6 +55,7 @@
 			this.backgroundThreadGetTimes = new System.ComponentModel.BackgroundWorker();
 			this.getTimesDedubToolTip = new System.Windows.Forms.ToolTip(this.components);
 			this.saveScreenshotButton = new System.Windows.Forms.Button();
+			this.kartridgeButton = new System.Windows.Forms.RadioButton();
 			this.rodChoiceGroupBox.SuspendLayout();
 			this.platformGroupBox.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.baitToUseText)).BeginInit();
@@ -156,11 +157,12 @@
 			// 
 			// platformGroupBox
 			// 
+			this.platformGroupBox.Controls.Add(this.kartridgeButton);
 			this.platformGroupBox.Controls.Add(this.steamButton);
 			this.platformGroupBox.Controls.Add(this.kongButton);
 			this.platformGroupBox.Location = new System.Drawing.Point(12, 12);
 			this.platformGroupBox.Name = "platformGroupBox";
-			this.platformGroupBox.Size = new System.Drawing.Size(160, 80);
+			this.platformGroupBox.Size = new System.Drawing.Size(160, 96);
 			this.platformGroupBox.TabIndex = 5;
 			this.platformGroupBox.TabStop = false;
 			this.platformGroupBox.Text = "Platform:";
@@ -169,7 +171,7 @@
 			// 
 			this.steamButton.AutoSize = true;
 			this.steamButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(173)))), ((int)(((byte)(238)))));
-			this.steamButton.Location = new System.Drawing.Point(7, 43);
+			this.steamButton.Location = new System.Drawing.Point(7, 65);
 			this.steamButton.Name = "steamButton";
 			this.steamButton.Size = new System.Drawing.Size(55, 17);
 			this.steamButton.TabIndex = 1;
@@ -220,7 +222,7 @@
 			// 
 			// baitToUseLabel
 			// 
-			this.baitToUseLabel.Location = new System.Drawing.Point(9, 95);
+			this.baitToUseLabel.Location = new System.Drawing.Point(9, 111);
 			this.baitToUseLabel.Name = "baitToUseLabel";
 			this.baitToUseLabel.Size = new System.Drawing.Size(121, 16);
 			this.baitToUseLabel.TabIndex = 14;
@@ -228,7 +230,7 @@
 			// 
 			// baitToUseText
 			// 
-			this.baitToUseText.Location = new System.Drawing.Point(12, 114);
+			this.baitToUseText.Location = new System.Drawing.Point(12, 128);
 			this.baitToUseText.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -336,6 +338,18 @@
 			this.saveScreenshotButton.UseVisualStyleBackColor = true;
 			this.saveScreenshotButton.Click += new System.EventHandler(this.saveScreenshotButton_Click);
 			// 
+			// kartridgeButton
+			// 
+			this.kartridgeButton.AutoSize = true;
+			this.kartridgeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(81)))), ((int)(((byte)(22)))), ((int)(((byte)(220)))));
+			this.kartridgeButton.ForeColor = System.Drawing.Color.White;
+			this.kartridgeButton.Location = new System.Drawing.Point(7, 42);
+			this.kartridgeButton.Name = "kartridgeButton";
+			this.kartridgeButton.Size = new System.Drawing.Size(67, 17);
+			this.kartridgeButton.TabIndex = 2;
+			this.kartridgeButton.Text = "Kartridge";
+			this.kartridgeButton.UseVisualStyleBackColor = false;
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -358,7 +372,7 @@
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "Form1";
-			this.Text = "Fisher v1.2.4";
+			this.Text = "Fisher v1.3.1";
 			this.rodChoiceGroupBox.ResumeLayout(false);
 			this.rodChoiceGroupBox.PerformLayout();
 			this.platformGroupBox.ResumeLayout(false);
@@ -397,6 +411,7 @@
 		private System.ComponentModel.BackgroundWorker backgroundThreadGetTimes;
 		private System.Windows.Forms.ToolTip getTimesDedubToolTip;
 		private System.Windows.Forms.Button saveScreenshotButton;
+		private System.Windows.Forms.RadioButton kartridgeButton;
 	}
 }
 
