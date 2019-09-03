@@ -32,7 +32,7 @@ Table of Contents
 - Run the file
 - you will see this screen:
 
-![Fisher GUI](https://i.imgur.com/cajbZ65.png)
+![Fisher GUI](https://i.imgur.com/NoUENqQ.png)
 
 ### Setting up the program
 - Select Kongregate, Kartridge, or Steam depending on which platform you are fishing in
