@@ -19,9 +19,12 @@ public class Helper {
 		if (OS.indexOf("win") >= 0) {
 			fullRangeCastColor = new Color(26, 118, 241);
 			startButtonGreen = new Color(155, 208, 30);
-		} else {
+		} else if (OS.indexOf("mac") >= 0){
 			fullRangeCastColor = new Color(23, 92, 237);
 			startButtonGreen = new Color(139, 202, 24);
+		} else {
+			fullRangeCastColor = new Color(35, 135, 211);
+			startButtonGreen = new Color(155, 208, 30);
 		}
 	}
 
