@@ -56,7 +56,7 @@ public class Main {
 			colorTimerCaughtFishSteam = new Color(59, 255, 59);
 			colorJunkItem = new Color(255, 255, 255);
 			oneHundredCatchColor = new Color(77, 254, 0);
-		} else {
+		} else if (OS.indexOf("mac") >= 0) {
 			startButtonGreen = new Color(139, 202, 24);
 			castButtonBlue = new Color(31, 153, 197);
 			colorCloseItGotAwayButton = new Color(31, 153, 197);
@@ -64,6 +64,14 @@ public class Main {
 			colorTimerCaughtFishSteam = new Color(59, 255, 59);
 			colorJunkItem = new Color(255, 255, 255);
 			oneHundredCatchColor = new Color(71, 255, 3);
+		} else {
+			startButtonGreen = new Color(155, 208, 30);
+			castButtonBlue = new Color(30, 170, 208);
+			colorCloseItGotAwayButton = new Color(30, 170, 208);
+			colorTimerCaughtFishKong = new Color(56, 255, 56);
+			colorTimerCaughtFishSteam = new Color(59, 255, 59);
+			colorJunkItem = new Color(255, 255, 255);
+			oneHundredCatchColor = new Color(77, 254, 0);
 		}
 	}
 
@@ -114,6 +122,7 @@ public class Main {
 			boolean fishGetAway = true;
 			logMessage(Level.INFO, baitUsed, baitToUse, "Performing cast.");
 			++baitUsed;
+			Thread.sleep(1000);
 			helper.startCast(locationStartButton);
 			helper.moveCursor(locationTimerCaughtFish);
 			while (caughtFish) {
