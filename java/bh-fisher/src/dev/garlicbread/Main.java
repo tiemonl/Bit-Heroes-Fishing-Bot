@@ -48,15 +48,7 @@ public class Main {
 	}
 
 	private static void setUpColors() {
-		if (OS.indexOf("win") >= 0) {
-			startButtonGreen = new Color(155, 208, 30);
-			castButtonBlue = new Color(030, 170, 208);
-			colorCloseItGotAwayButton = new Color(030, 170, 208);
-			colorTimerCaughtFishKong = new Color(56, 255, 56);
-			colorTimerCaughtFishSteam = new Color(59, 255, 59);
-			colorJunkItem = new Color(255, 255, 255);
-			oneHundredCatchColor = new Color(77, 254, 0);
-		} else if (OS.indexOf("mac") >= 0) {
+		if (OS.indexOf("mac") >= 0) {
 			startButtonGreen = new Color(139, 202, 24);
 			castButtonBlue = new Color(31, 153, 197);
 			colorCloseItGotAwayButton = new Color(31, 153, 197);
@@ -110,7 +102,6 @@ public class Main {
 		locationTopLeftWeightScreenshot = new Point(locationStartButton.x - 25, locationStartButton.y - 130);
 		locationBottomRightWeightScreenshot = new Point(locationStartButton.x + 160, locationStartButton.y - 50);
 		location100Position = new Point(locationStartButton.x + 373, locationStartButton.y - 81);
-
 	}
 
 	public static void startFishing() throws InterruptedException {
