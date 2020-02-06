@@ -1,17 +1,25 @@
 package dev.garlicbread;
 
+import com.google.gson.Gson;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.logging.*;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main {
 
 	public static Helper helper;
 	public static Logger logger;
+	public static ButtonColors buttonColors;
+	public static Gson gson = new Gson();
 
 	private static boolean steam;
 	private static int rodType;
 	private static int bait;
+
 	private static Point locationStartButton;
 	private static Point locationCloseShellDialogBox;
 	private static Point locationTradeFishButton;
@@ -21,8 +29,6 @@ public class Main {
 	private static Point locationTopLeftWeightScreenshot;
 	private static Point locationBottomRightWeightScreenshot;
 	private static Point location100Position;
-
-	private static String OS = System.getProperty("os.name").toLowerCase();
 
 	private static Color startButtonGreen;
 	private static Color castButtonBlue;
@@ -34,37 +40,52 @@ public class Main {
 
 	private static Robot r;
 
-	public static void main(String[] args) throws AWTException, InterruptedException {
+	public static void main(String[] args) throws AWTException, InterruptedException, FileNotFoundException {
+		setUpColors();
 		bait = Integer.parseInt(args[0]);
 		r = new Robot();
-		helper = new Helper(r);
+		helper = new Helper(r, buttonColors);
 		logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
 		Dimension screenDim = Toolkit.getDefaultToolkit().getScreenSize();
-		setUpColors();
+
 		BufferedImage screenCapture = r.createScreenCapture(new Rectangle(screenDim));
 		setStartLocation(screenCapture);
 		startFishing();
 
 	}
 
-	private static void setUpColors() {
-		if (OS.indexOf("mac") >= 0) {
-			startButtonGreen = new Color(139, 202, 24);
-			castButtonBlue = new Color(31, 153, 197);
-			colorCloseItGotAwayButton = new Color(31, 153, 197);
-			colorTimerCaughtFishKong = new Color(56, 255, 56);
-			colorTimerCaughtFishSteam = new Color(59, 255, 59);
-			colorJunkItem = new Color(255, 255, 255);
-			oneHundredCatchColor = new Color(71, 255, 3);
-		} else {
-			startButtonGreen = new Color(155, 208, 30);
-			castButtonBlue = new Color(30, 170, 208);
-			colorCloseItGotAwayButton = new Color(30, 170, 208);
-			colorTimerCaughtFishKong = new Color(56, 255, 56);
-			colorTimerCaughtFishSteam = new Color(59, 255, 59);
-			colorJunkItem = new Color(255, 255, 255);
-			oneHundredCatchColor = new Color(77, 254, 0);
-		}
+	private static void setUpColors() throws FileNotFoundException {
+		buttonColors = gson.fromJson(new FileReader("buttonColors.json"), ButtonColors.class);
+
+		startButtonGreen =
+				new Color(buttonColors.getStartButtonGreen().getRed(),
+						buttonColors.getStartButtonGreen().getGreen(),
+						buttonColors.getStartButtonGreen().getBlue());
+		castButtonBlue =
+				new Color(buttonColors.getCastButtonBlue().getRed(),
+						buttonColors.getCastButtonBlue().getGreen(),
+						buttonColors.getCastButtonBlue().getBlue());
+		colorCloseItGotAwayButton =
+				new Color(buttonColors.getColorCloseItGotAwayButton().getRed(),
+						buttonColors.getColorCloseItGotAwayButton().getGreen(),
+						buttonColors.getColorCloseItGotAwayButton().getBlue());
+		colorTimerCaughtFishKong =
+				new Color(buttonColors.getColorTimerCaughtFishKong().getRed(),
+						buttonColors.getColorTimerCaughtFishKong().getGreen(),
+						buttonColors.getColorTimerCaughtFishKong().getBlue());
+		colorTimerCaughtFishSteam =
+				new Color(buttonColors.getColorTimerCaughtFishSteam().getRed(),
+						buttonColors.getColorTimerCaughtFishSteam().getGreen(),
+						buttonColors.getColorTimerCaughtFishSteam().getBlue());
+		colorJunkItem =
+				new Color(buttonColors.getColorJunkItem().getRed(),
+						buttonColors.getColorJunkItem().getGreen(),
+						buttonColors.getColorJunkItem().getBlue());
+		oneHundredCatchColor =
+				new Color(buttonColors.getOneHundredCatchColor().getRed(),
+						buttonColors.getOneHundredCatchColor().getGreen(),
+						buttonColors.getOneHundredCatchColor().getBlue());
 	}
 
 	public static Point FindColor(Color c, BufferedImage screen) {

@@ -6,26 +6,25 @@ import java.awt.event.KeyEvent;
 
 public class Helper {
 	Robot robot;
+	ButtonColors buttonColors;
 	private Color fullRangeCastColor;
 	private Color startButtonGreen;
 
-	public Helper(Robot r) throws AWTException {
+	public Helper(Robot r, ButtonColors buttonColors) throws AWTException {
 		robot = r;
+		this.buttonColors = buttonColors;
 		setUpColors();
 	}
 
 	private void setUpColors() {
-		String OS = System.getProperty("os.name").toLowerCase();
-		if (OS.indexOf("win") >= 0) {
-			fullRangeCastColor = new Color(26, 118, 241);
-			startButtonGreen = new Color(155, 208, 30);
-		} else if (OS.indexOf("mac") >= 0){
-			fullRangeCastColor = new Color(23, 92, 237);
-			startButtonGreen = new Color(139, 202, 24);
-		} else {
-			fullRangeCastColor = new Color(35, 135, 211);
-			startButtonGreen = new Color(155, 208, 30);
-		}
+		fullRangeCastColor = new Color(
+				buttonColors.getFullRangeCastColor().getGreen(),
+				buttonColors.getFullRangeCastColor().getRed(),
+				buttonColors.getFullRangeCastColor().getBlue());
+		startButtonGreen = new Color(
+				buttonColors.getStartButtonGreen().getGreen(),
+				buttonColors.getStartButtonGreen().getRed(),
+				buttonColors.getStartButtonGreen().getBlue());
 	}
 
 	public Color GetPixelColor(Point p) {

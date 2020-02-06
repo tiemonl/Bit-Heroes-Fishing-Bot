@@ -1,0 +1,42 @@
+{
+  "startButtonGreen": {
+    "red": 139,
+    "green": 202,
+    "blue": 24
+  },
+  "castButtonBlue": {
+    "red": 31,
+    "green": 153,
+    "blue": 197
+  },
+  "colorCloseItGotAwayButton": {
+    "red": 31,
+    "green": 153,
+    "blue": 197
+  },
+  "colorTimerCaughtFishKong": {
+    "red": 56,
+    "green": 255,
+    "blue": 56
+  },
+  "colorTimerCaughtFishSteam": {
+    "red": 59,
+    "green": 255,
+    "blue": 59
+  },
+  "colorJunkItem": {
+    "red": 255,
+    "green": 255,
+    "blue": 255
+  },
+  "oneHundredCatchColor": {
+    "red": 71,
+    "green": 255,
+    "blue": 3
+  },
+  "fullRangeCastColor": {
+    "red": 26,
+    "green": 118,
+    "blue": 241
+  }
+}
