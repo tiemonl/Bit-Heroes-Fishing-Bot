@@ -1,5 +1,7 @@
 # Bit Heroes Fishing Bot
 
+:warning: :warning: :warning: This program is no longer in development. It does its job (more or less) and the I have succumb to real life! Please feel free to fork and maintain as you wish. I'll review and accept any pull request and make new releases. I appreciate all of the support while I maintained it. :smile: :warning: :warning: :warning: 
+
 [![GitHub issues](https://img.shields.io/github/issues/tiemonl/Bit-Heroes-Fishing-Bot.svg)](https://github.com/tiemonl/Bit-Heroes-Fishing-Bot/issues)
 [![Github All Releases](https://img.shields.io/github/downloads/tiemonl/Bit-Heroes-Fishing-Bot/total.svg)](https://github.com/tiemonl/Bit-Heroes-Fishing-Bot/releases)
 [![Donate Paypal](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9F2F5CFVSHK8G)
