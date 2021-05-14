@@ -49,7 +49,7 @@ public class Main {
 
 	private static void setUpColors() {
 		if (OS.indexOf("mac") >= 0) {
-			startButtonGreen = new Color(139, 202, 24);
+			startButtonGreen = new Color(166, 211, 53);
 			castButtonBlue = new Color(31, 153, 197);
 			colorCloseItGotAwayButton = new Color(31, 153, 197);
 			colorTimerCaughtFishKong = new Color(56, 255, 56);
